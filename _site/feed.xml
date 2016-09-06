@@ -1,0 +1,1568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mahong</title>
+    <description></description>
+    <link>http://mahong978.github.io/</link>
+    <atom:link href="http://mahong978.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 06 Sep 2016 13:54:05 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Sep 2016 13:54:05 +0800</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Java笔记整理：多态</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;向上转型&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;方法调用绑定&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;缺陷&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;覆盖私有方法&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;域与静态方法&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;构造器&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;销毁&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;继承&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;纯继承与扩展&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;向下转型&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;多态是数据抽象和继承之后的第三种基本特征&lt;/p&gt;
+
+&lt;p&gt;利用多态可以创建可扩展的程序&lt;/p&gt;
+
+&lt;p&gt;多态可以消除类型之间的耦合关系&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;向上转型&lt;/h2&gt;
+&lt;p&gt;向上转型会将接口缩小至基类的大小&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;方法调用绑定&lt;/h2&gt;
+
+&lt;p&gt;绑定：将一个方法调同一个方法主体关联起来&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前期绑定：程序执行前进行绑定（编译器和连接程序），默认的绑定方式&lt;/li&gt;
+  &lt;li&gt;后期绑定：程序运行时根据对象的类型进行绑定，又叫动态绑定和运行时绑定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;JAVA中除了static方法和final方法之外，所有方法都是后期绑定&lt;/p&gt;
+
+&lt;p&gt;帮助设计可扩展的程序&lt;/p&gt;
+
+&lt;p&gt;多态是一项将改变的事物和未变的事物分离开来的重要技术&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;缺陷&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;覆盖私有方法&lt;/h3&gt;
+&lt;p&gt;覆盖private方法将会产生一个全新的方法&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;域与静态方法&lt;/h3&gt;
+&lt;p&gt;只有普通的方法调用可以是多态的&lt;/p&gt;
+
+&lt;p&gt;域的访问是编译时解析的，导出类默认访问自己的域，要访问基类的域要使用关键字super&lt;/p&gt;
+
+&lt;p&gt;静态方法是与类而不是对象相关联的&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;构造器&lt;/h2&gt;
+&lt;p&gt;构造器实际上是static方法，因此不具有多态性&lt;/p&gt;
+
+&lt;p&gt;基类的构造器总是在导出类的构造过程中被调用，并且沿着继承层次向上链接&lt;/p&gt;
+
+&lt;p&gt;如果没有指定调用哪个构造器，默认调用基类的默认构造器&lt;/p&gt;
+
+&lt;p&gt;构造器调用顺序：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;调用基类构造器&lt;/li&gt;
+  &lt;li&gt;按声明顺序初始化成员&lt;/li&gt;
+  &lt;li&gt;调用导出类构造器主体&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;销毁&lt;/h3&gt;
+&lt;p&gt;销毁的顺序应该和初始化顺序相反，即声明的初始化顺序&lt;/p&gt;
+
+&lt;p&gt;先对导出类进行清理，然后才是基类&lt;/p&gt;
+
+&lt;p&gt;如果有成员对象是被共享的，必须使用引用计数&lt;/p&gt;
+
+&lt;p&gt;遍写构造器时避免使用其他方法，唯一能安全调用的是基类中的final方法&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;继承&lt;/h2&gt;
+
+&lt;p&gt;继承设计准则：继承表达行为间差异，用字段表达状态上的变化&lt;/p&gt;
+
+&lt;h3 id=&quot;section-8&quot;&gt;纯继承与扩展&lt;/h3&gt;
+
+&lt;p&gt;导出类具有基类的接口&lt;/p&gt;
+
+&lt;p&gt;纯继承：导出类可以完全代替基类&lt;/p&gt;
+
+&lt;p&gt;导出类中扩展接口部分不能被基类访问&lt;/p&gt;
+
+&lt;h3 id=&quot;section-9&quot;&gt;向下转型&lt;/h3&gt;
+
+&lt;p&gt;所有转型都会得到检查，运行时进行检查，如果不是会返回ClassCastException（运行时类型识别RTTI）&lt;/p&gt;
+</description>
+        <pubDate>Mon, 05 Sep 2016 11:50:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/09/05/Java-polymorphism/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/09/05/Java-polymorphism/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：复用类</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;组合&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;继承&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;初始化基类&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;代理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;结合使用组合和继承&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;确保正确清理&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;名称屏蔽&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;选择组合或继承&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#protected&quot; id=&quot;markdown-toc-protected&quot;&gt;protected&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;向上转型&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#final&quot; id=&quot;markdown-toc-final&quot;&gt;final关键字&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-1&quot; id=&quot;markdown-toc-final-1&quot;&gt;final数据&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-2&quot; id=&quot;markdown-toc-final-2&quot;&gt;空白final&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-3&quot; id=&quot;markdown-toc-final-3&quot;&gt;final参数&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-4&quot; id=&quot;markdown-toc-final-4&quot;&gt;final方法&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-5&quot; id=&quot;markdown-toc-final-5&quot;&gt;final类&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;初始化以及类的加载&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;复用代码最简单的方式就是复制代码
+可以通过创建新类进行复用：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在新类中产生现有类的对象（组合）&lt;/li&gt;
+  &lt;li&gt;按照现有类来创建新类（继承）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;组合&lt;/h2&gt;
+
+&lt;p&gt;每一个非基本类型的类都有一个toString方法
+类中基本类型的域会自动初始化为0，对象引用初始化为null
+null引用可以被打印&lt;/p&gt;
+
+&lt;p&gt;初始化引用的方式：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;定义的地方。这将会在构造器之前执行&lt;/li&gt;
+  &lt;li&gt;构造器中&lt;/li&gt;
+  &lt;li&gt;正要使用之前。也叫惰性初始化&lt;/li&gt;
+  &lt;li&gt;使用实例初始化&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;继承&lt;/h2&gt;
+&lt;p&gt;创建一个类时，总是在继承。除非显式指出继承某类，否则将隐式继承Object类
+继承将自动获得基类的所有域和方法
+使用super关键字调用基类版本的域或方法&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;初始化基类&lt;/h3&gt;
+&lt;p&gt;创建一个导出类的对象时，该对象会包含一个基类的子对象
+导出类的构造器中自动先调用基类的构造器
+构造过程是从基类向外扩散的，即先调用基类的，再调用导出类的。这使得基类内容在导出类可以访问它时，就已经完成了初始化&lt;/p&gt;
+
+&lt;p&gt;Java会调用的是基类的默认构造器，如果基类没有，需要用super显式地调用基类的带参构造器
+调用基类构造器必须是导出类构造器中的第一件事&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;代理&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;代理是一个编程模式，是继承和组合的中庸之道&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;将成员对象置于类中（组合），在类中暴露成员对象的所有方法（类似继承），相当于新类代理了各个成员对象的行为&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;结合使用组合和继承&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;确保正确清理&lt;/h3&gt;
+&lt;p&gt;由于不知道垃圾回收器何时回收，因此需要显式地遍写方法来进行收尾
+可以使用try-finally代码块。无论try是如何退出的，finally块总会被执行&lt;/p&gt;
+
+&lt;p&gt;清理顺序应和构造顺序相反&lt;/p&gt;
+
+&lt;p&gt;不要使用finalize&lt;/p&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;名称屏蔽&lt;/h3&gt;
+&lt;p&gt;在导出类中对基类的方法进行重载，不会屏蔽基类的所有重载版本
+&lt;code class=&quot;highlighter-rouge&quot;&gt;@Override&lt;/code&gt;注解可以防止在不想重载时意外进行了重载&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;选择组合或继承&lt;/h2&gt;
+&lt;p&gt;组合和继承都是在新类中放置子对象，组合是显式的，继承是隐式的
+组合通常是希望在新类中使用现有类的功能，而并非得到其接口。用户看到的只有新类的接口，而看不到成员的接口
+继承是希望使用现有类，开发它的特殊版本&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;组合 = has-a&lt;/li&gt;
+  &lt;li&gt;继承 = is-a&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;protected&quot;&gt;protected&lt;/h2&gt;
+&lt;p&gt;继承使protected关键字具有意义
+应尽量使用private，然后用protected限制继承者的访问权限&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;向上转型&lt;/h2&gt;
+&lt;p&gt;称为向上转型是因为，类层次关系中基类是上层的
+向上转型总是安全的
+向上转型会丢失信息
+向上转型的过程中，类接口只会丢失方法，而不会获取方法&lt;/p&gt;
+
+&lt;p&gt;继承应当慎用，使用继承前应考虑是否需要进行向上转型&lt;/p&gt;
+
+&lt;h2 id=&quot;final&quot;&gt;final关键字&lt;/h2&gt;
+
+&lt;h3 id=&quot;final-1&quot;&gt;final数据&lt;/h3&gt;
+&lt;p&gt;final的作用是向编译器通知一块数据是恒定不变的&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;永不改变的编译时常量&lt;/li&gt;
+  &lt;li&gt;运行时初始化的值，希望不被改变&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;JAVA会对final使用优化进行优化，对于域会在编译时计算表达式，对于方法会使用内嵌机制
+编译时常量必须是基本类型，定义该常量时必须对其进行赋值&lt;/p&gt;
+
+&lt;p&gt;final修饰对象引用时，表示该引用恒定不变。一旦该引用指向一个对象，就不能指向别的对象&lt;/p&gt;
+
+&lt;p&gt;JAVA编写规范中，既是static又是final的域命名用大写，用下划线分隔单词&lt;/p&gt;
+
+&lt;h3 id=&quot;final-2&quot;&gt;空白final&lt;/h3&gt;
+&lt;p&gt;声明为final但没有给定初值的域
+无论如何，必须在域的定义处或每个构造器中对final进行赋值，否则将会在使用该域时产生异常&lt;/p&gt;
+
+&lt;h3 id=&quot;final-3&quot;&gt;final参数&lt;/h3&gt;
+&lt;p&gt;表示无法在方法中更改参数的值或指向的对象&lt;/p&gt;
+
+&lt;h3 id=&quot;final-4&quot;&gt;final方法&lt;/h3&gt;
+&lt;p&gt;使用final方法的原因：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;锁定方法，防止导出类修改其含义&lt;/li&gt;
+  &lt;li&gt;效率。使用内嵌调用提高效率&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;类中的private方法都隐式地指定为final
+覆盖一个private方法不会导致错误，但不会覆盖，而是产生了一个新方法&lt;/p&gt;
+
+&lt;h3 id=&quot;final-5&quot;&gt;final类&lt;/h3&gt;
+&lt;p&gt;表示无法被继承
+类中的所有方法都隐式指定为final&lt;/p&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;初始化以及类的加载&lt;/h2&gt;
+&lt;p&gt;编译代码文件只有在需要使用时才会被加载
+加载发生于创建类的第一个对象或者访问静态域或方法时
+所有的静态域和代码段都会在加载时，按照书写顺序依次初始化&lt;/p&gt;
+
+&lt;p&gt;在使用导出类时，会加载基类
+对于静态成员，会先初始化基类的&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 05 Sep 2016 11:46:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/09/05/Java-reuse-class/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/09/05/Java-reuse-class/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：访问权限控制</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;包&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;代码组织&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;包名&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#import-static&quot; id=&quot;markdown-toc-import-static&quot;&gt;import static&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#import&quot; id=&quot;markdown-toc-import&quot;&gt;用import改变行为&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#java&quot; id=&quot;markdown-toc-java&quot;&gt;JAVA访问权限修饰词&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;包访问权限&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#public&quot; id=&quot;markdown-toc-public&quot;&gt;public&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#private&quot; id=&quot;markdown-toc-private&quot;&gt;private&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#protected&quot; id=&quot;markdown-toc-protected&quot;&gt;protected&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#protected-1&quot; id=&quot;markdown-toc-protected-1&quot;&gt;protected也提供包访问权限&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;接口和实现&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;类访问权限&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;访问权限控制的等级，从大到小依次为：
+public，protected，包访问权限，private&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;包&lt;/h2&gt;
+&lt;p&gt;包是库单元&lt;/p&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;代码组织&lt;/h3&gt;
+&lt;p&gt;一个JAVA源代码文件是一个编译单元（转译单元）
+编译单元内有一个或零个public类，该类名必须和编译单元名字相同
+编译单元内其他的类不能为public&lt;/p&gt;
+
+&lt;p&gt;JAVA可执行程序是class文件
+如果使用package语句，必须是文件非注释的第一句代码&lt;/p&gt;
+&lt;h3 id=&quot;section-2&quot;&gt;包名&lt;/h3&gt;
+&lt;p&gt;包名的第一部分是类创建者的反序域名
+整个包名为小写
+包路径中除包名给出的相对路径外的部分，在环境变量CLASSPATH给出
+使用JAR则必须在CLASSPATH中给出完整路径&lt;/p&gt;
+&lt;h3 id=&quot;import-static&quot;&gt;import static&lt;/h3&gt;
+&lt;p&gt;使用import static可以导入对应类中的静态方法，可用于定制工具库&lt;/p&gt;
+&lt;h3 id=&quot;import&quot;&gt;用import改变行为&lt;/h3&gt;
+&lt;p&gt;相当于条件编译，不同包下有相似的类，那么可以通过修改import的包来改变程序的行为&lt;/p&gt;
+
+&lt;h2 id=&quot;java&quot;&gt;JAVA访问权限修饰词&lt;/h2&gt;
+&lt;p&gt;无论如何，所有事物都具有某种形式的访问权限控制&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;包访问权限&lt;/h2&gt;
+&lt;p&gt;对于包外的类相当于 private
+包访问权限为包的存在具有意义&lt;/p&gt;
+
+&lt;p&gt;取得某成员的访问权限的途径
+	1. 使其成为public
+	2. 不加访问权限修饰词，并与其类置于同一包内
+	3. 继承类，可以获得public和protected成员的访问权限，private不行，包访问权限的只能包内继承才行
+	4. 提供get/set方法&lt;/p&gt;
+&lt;h2 id=&quot;public&quot;&gt;public&lt;/h2&gt;
+&lt;p&gt;没有指定package的类，全部归属于对应目录下的默认包中&lt;/p&gt;
+&lt;h2 id=&quot;private&quot;&gt;private&lt;/h2&gt;
+&lt;p&gt;一个使用方法是让构造器私有化，控制对象的创建&lt;/p&gt;
+&lt;h2 id=&quot;protected&quot;&gt;protected&lt;/h2&gt;
+&lt;p&gt;处理的是继承的概念&lt;/p&gt;
+&lt;h2 id=&quot;protected-1&quot;&gt;protected也提供包访问权限&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;接口和实现&lt;/h1&gt;
+&lt;p&gt;访问权限控制相当于具体实现的隐藏
+数据和方法放进类中 + 具体实现的隐藏 = 封装&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;类访问权限&lt;/h1&gt;
+&lt;p&gt;public：希望某个类可以被客户使用
+注意：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;每个编译单元只能有一个public类&lt;/li&gt;
+  &lt;li&gt;public类的名称必须和编译单元文件名相同，大小写区分&lt;/li&gt;
+  &lt;li&gt;编译单元可以没有public类，此时命名随意&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;不是public的类具有包访问权限
+类没有private和protected情况
+如果某个包访问权限的类含有public的静态成员，客户可以使用这个静态成员，但不可以生成该类的对象&lt;/p&gt;
+</description>
+        <pubDate>Sun, 04 Sep 2016 11:19:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/09/04/Java-access-control/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/09/04/Java-access-control/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：初始化和清理</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;构造器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;方法重载&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;默认构造器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#this&quot; id=&quot;markdown-toc-this&quot;&gt;this关键字&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#static&quot; id=&quot;markdown-toc-static&quot;&gt;static&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;清理&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#finalize&quot; id=&quot;markdown-toc-finalize&quot;&gt;finalize的用途&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#finalize-1&quot; id=&quot;markdown-toc-finalize-1&quot;&gt;使用finalize的情形&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;垃圾回收器&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;引用计数&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;停止-复制&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;标记-清扫&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#generation&quot; id=&quot;markdown-toc-generation&quot;&gt;generation&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;成员初始化&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;构造器初始化&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-10&quot; id=&quot;markdown-toc-section-10&quot;&gt;初始化顺序&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-11&quot; id=&quot;markdown-toc-section-11&quot;&gt;静态数据初始化&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-12&quot; id=&quot;markdown-toc-section-12&quot;&gt;显示的静态初始化&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-13&quot; id=&quot;markdown-toc-section-13&quot;&gt;非静态实例初始化&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-14&quot; id=&quot;markdown-toc-section-14&quot;&gt;数组初始化&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-15&quot; id=&quot;markdown-toc-section-15&quot;&gt;可变参数列表&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-16&quot; id=&quot;markdown-toc-section-16&quot;&gt;枚举类型&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;构造器&lt;/h2&gt;
+&lt;p&gt;构造器没有返回值&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;方法重载&lt;/h2&gt;
+&lt;p&gt;每个重载方法都有一个独一无二的参数类型列表
+如果传入的数据类型小于声明的形参类型，数据类型会被提升，char会提升为int
+如果传入的数据类型大于声明的形参类型，需要显式类型转换
+不能通过返回类型来区分重载方法&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;默认构造器&lt;/h2&gt;
+&lt;p&gt;如果类中无构造器，编译器会自动创建一个默认构造器
+如果已经声明了一个构造器，编译器不会创建默认构造器&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;this&quot;&gt;this关键字&lt;/h2&gt;
+&lt;p&gt;this相当于该对象的一个引用
+this只能在方法内部使用&lt;/p&gt;
+
+&lt;p&gt;构造器中可以调用另一个构造器，用this加参数列表表示，但只能调用一个，且该调用语句必须置于最起始处&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;static&quot;&gt;static&lt;/h2&gt;
+&lt;p&gt;静态方法内不能调用非静态方法，反之则可以
+可以用类本身调用
+JAVA禁止全局方法（万物皆对象）&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;清理&lt;/h2&gt;
+&lt;p&gt;注意的三点&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;对象不一定会被垃圾回收&lt;/li&gt;
+  &lt;li&gt;垃圾回收不等于析构&lt;/li&gt;
+  &lt;li&gt;垃圾回收只与内存有关&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;一旦垃圾回收器准备释放一个对象，会先调用其finalize方法，再洗一次垃圾回收发生时才真正回收&lt;/p&gt;
+&lt;h3 id=&quot;finalize&quot;&gt;finalize的用途&lt;/h3&gt;
+&lt;p&gt;finalize只针对通过创建对象的方式以外的方式为对象分配的存储空间，即C和C++的情况
+这种情况通常发生在使用“本地方法”（native method）的情况&lt;/p&gt;
+
+&lt;p&gt;如果JAVA虚拟机（JVM）没有发生内存耗尽的情况，就不会执行垃圾回收&lt;/p&gt;
+&lt;h3 id=&quot;finalize-1&quot;&gt;使用finalize的情形&lt;/h3&gt;
+&lt;p&gt;在对象被回收前发现存在的隐晦缺陷，比如打开的文件&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;垃圾回收器&lt;/h3&gt;
+&lt;p&gt;垃圾回收器能提高对象的创建速度
+垃圾回收器除了回收空间，还将存活的对象内存紧密排列&lt;/p&gt;
+
+&lt;h4 id=&quot;section-5&quot;&gt;引用计数&lt;/h4&gt;
+&lt;p&gt;简单，但速度慢
+当对象间存在循环引用时，可能会出现引用计数不为零的情况
+引用计数未被应用在任何JAVA虚拟机中&lt;/p&gt;
+
+&lt;p&gt;解决方法：从堆栈和静态存储区中的引用开始遍历，找到所有被指向的对象，以及对象包含的引用，反复进行直到全部被访问为止&lt;/p&gt;
+
+&lt;h4 id=&quot;section-6&quot;&gt;停止-复制&lt;/h4&gt;
+&lt;p&gt;先暂停程序，将存活的对象复制到另一个堆中，并且紧凑排放&lt;/p&gt;
+
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;需要多一倍空间&lt;/li&gt;
+  &lt;li&gt;在程序稳定时，只会产生少量垃圾，那么全部复制就很浪费&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;section-7&quot;&gt;标记-清扫&lt;/h4&gt;
+&lt;p&gt;通过引用遍历所有对象，给对象设置一个标记，标记完后开始清扫，只回收没有标记的对象
+剩下的堆空间将是不连续的&lt;/p&gt;
+
+&lt;h4 id=&quot;generation&quot;&gt;generation&lt;/h4&gt;
+&lt;p&gt;内存分配以内存块为单位，“停止-复制”的堆复制变成块复制
+每个块用代数记录是否还存活，被引用则代数增加
+垃圾回收器对上次新分配的块进行整理，因为大型对象占据整个块不会被复制，因此对处理大量临时对象很有帮助&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;成员初始化&lt;/h2&gt;
+&lt;p&gt;JAVA保证所有变量在使用前都会被适当地初始化。对于没有初始化的局部变量，会产生编译错误&lt;/p&gt;
+
+&lt;p&gt;可以定义类成员变量时赋值
+成员初始化顺序取决于定义顺序&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;构造器初始化&lt;/h2&gt;
+&lt;p&gt;自动初始化无论如何都会发生，然后才调用构造器&lt;/p&gt;
+&lt;h3 id=&quot;section-10&quot;&gt;初始化顺序&lt;/h3&gt;
+&lt;p&gt;变量定义的顺序决定了初始化的顺序&lt;/p&gt;
+
+&lt;h3 id=&quot;section-11&quot;&gt;静态数据初始化&lt;/h3&gt;
+&lt;p&gt;静态数据只占用一份内存，与对象个数无关
+静态初始化只有在必要时才会进行。静态数据不会再被初始化
+静态初始化在非静态初始化之前&lt;/p&gt;
+
+&lt;p&gt;对于一个Dog类，其产生对象的过程：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;构造器实际上是静态方法。由于构造器第一次被访问，JAVA解释器定位Dog.class&lt;/li&gt;
+  &lt;li&gt;载入Dog.class，这将会创建一个Class对象。静态初始化动作全部执行&lt;/li&gt;
+  &lt;li&gt;为对象分配内存空间&lt;/li&gt;
+  &lt;li&gt;该内存空间全部置零（默认初始化）&lt;/li&gt;
+  &lt;li&gt;执行字段定义处的初始化&lt;/li&gt;
+  &lt;li&gt;执行构造器&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-12&quot;&gt;显示的静态初始化&lt;/h3&gt;
+&lt;p&gt;多个静态初始化动作可以用一个static块包括&lt;/p&gt;
+&lt;h3 id=&quot;section-13&quot;&gt;非静态实例初始化&lt;/h3&gt;
+&lt;p&gt;该子句在构造器之前执行
+可以用于保证无论哪个构造器被调用，某些操作都会发生&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-14&quot;&gt;数组初始化&lt;/h2&gt;
+&lt;p&gt;方括号可以放在标识符的前面或后面
+所有数组都有一个成员length，会在越界访问时抛出异常&lt;/p&gt;
+
+&lt;p&gt;数组的创建是运行时的
+初始化列表最后的逗号是可选的&lt;/p&gt;
+
+&lt;h3 id=&quot;section-15&quot;&gt;可变参数列表&lt;/h3&gt;
+&lt;p&gt;如果没有定义toString方法，在打印对象时会输出类名+”@”+地址
+可变参数获得的依然是一个数组
+传递0个参数是可行的
+可以和自动包装机制搭配使用&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-16&quot;&gt;枚举类型&lt;/h2&gt;
+&lt;p&gt;创建enum时，会自动创建toString方法和ordinal方法
+enum是类，具有自己的方法&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 02 Sep 2016 10:58:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/09/02/Java-initialization-and-clean/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/09/02/Java-initialization-and-clean/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：控制执行流程</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#truefalse&quot; id=&quot;markdown-toc-truefalse&quot;&gt;true和false&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#if-else&quot; id=&quot;markdown-toc-if-else&quot;&gt;if-else&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;迭代&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#foreach&quot; id=&quot;markdown-toc-foreach&quot;&gt;foreach&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#goto&quot; id=&quot;markdown-toc-goto&quot;&gt;goto&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#switch&quot; id=&quot;markdown-toc-switch&quot;&gt;switch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;truefalse&quot;&gt;true和false&lt;/h2&gt;
+&lt;p&gt;所有条件语句都用true和false决定执行路径
+JAVA不允许将一个数字作为布尔值使用&lt;/p&gt;
+
+&lt;h2 id=&quot;if-else&quot;&gt;if-else&lt;/h2&gt;
+&lt;p&gt;else if不是关键字&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;迭代&lt;/h2&gt;
+&lt;p&gt;JAVA中唯一使用到逗号操作符的地方，是for循环的控制表达式
+无论是初始化还是步进部分，语句都是顺序执行的，而不是同时进行&lt;/p&gt;
+
+&lt;h2 id=&quot;foreach&quot;&gt;foreach&lt;/h2&gt;
+&lt;p&gt;体现了封装的特性
+更加简洁的for语法&lt;/p&gt;
+
+&lt;h2 id=&quot;goto&quot;&gt;goto&lt;/h2&gt;
+&lt;p&gt;JAVA使用标签进行跳转
+break和continue可配合标签使用，效果是先跳到标签对应的循环部分，然后再进行break/continue操作
+JAVA使用标签的唯一理由是希望在多层嵌套中break或continue&lt;/p&gt;
+
+&lt;h2 id=&quot;switch&quot;&gt;switch&lt;/h2&gt;
+&lt;p&gt;只能对int，String或enum类型进行操作&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 02 Sep 2016 10:48:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/09/02/Java-control-execution/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/09/02/Java-control-execution/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：操作符</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#java&quot; id=&quot;markdown-toc-java&quot;&gt;JAVA操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;优先级&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;赋值&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;算术操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;递增递减操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;关系操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;逻辑操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;直接常量&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;前缀&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;后缀&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;指数计数法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-10&quot; id=&quot;markdown-toc-section-10&quot;&gt;位操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-11&quot; id=&quot;markdown-toc-section-11&quot;&gt;移位操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-12&quot; id=&quot;markdown-toc-section-12&quot;&gt;字符串操作符&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-13&quot; id=&quot;markdown-toc-section-13&quot;&gt;类型转换&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;java&quot;&gt;JAVA操作符&lt;/h2&gt;
+&lt;p&gt;除“=”，“==”和“!=”外，所有操作符只能操作基本数据类型
+String类支持“+”和“+=”&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;优先级&lt;/h2&gt;
+&lt;p&gt;在连加的表达式中，String类型的元素后面的所有元素，都会自动转换成String类型&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;赋值&lt;/h2&gt;
+&lt;p&gt;常量不能作为左值
+基本数据变量存储的是实际的数值，赋值时会复制实际的内容
+对象赋值时实际上是复制引用，而不是对象本身&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;算术操作符&lt;/h2&gt;
+&lt;p&gt;整数除法会直接去掉小数位，而不是四舍五入
+一元加操作符，像“+4”，会将较小类型的操作数提升为int&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;递增递减操作符&lt;/h2&gt;
+&lt;p&gt;递增递减操作符是唯一具有“副作用”的操作符，即改变操作数&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;关系操作符&lt;/h2&gt;
+&lt;p&gt;关系操作符会生成一个boolean结果
+boolean类型不支持除“==”和“!=”外的比较符&lt;/p&gt;
+
+&lt;p&gt;对象间进行比较时，实际上比较的是两个引用
+JAVA内置的一些类的equals方法其实是重载了Object类的equals方法，equals方法默认比较引用&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;逻辑操作符&lt;/h2&gt;
+&lt;p&gt;逻辑操作符会生成一个boolean结果
+逻辑操作符的操作数只能是boolean类型，JAVA不允许将非布尔值当作布尔值使用
+JAVA存在短路特性&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;直接常量&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-7&quot;&gt;前缀&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;十六进制：0x 或 0X&lt;/li&gt;
+  &lt;li&gt;八进制：0&lt;/li&gt;
+  &lt;li&gt;没有二进制（可以使用Integer.toBinaryString()方法获得）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-8&quot;&gt;后缀&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;long：l 或 L&lt;/li&gt;
+  &lt;li&gt;double：d 或 D&lt;/li&gt;
+  &lt;li&gt;float：f 或 F&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;试图将变量初始化成超出自身范围的值，会得到一条错误信息
+如果没有后缀，会默认转换成int值&lt;/p&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;指数计数法&lt;/h2&gt;
+&lt;p&gt;编译器会将指数作为double类型处理&lt;/p&gt;
+
+&lt;h2 id=&quot;section-10&quot;&gt;位操作符&lt;/h2&gt;
+&lt;p&gt;~是一元操作符，因此没有~=
+boolean类型可以应用于位操作符，但不能使用 ~ 操作符
+位操作符表达式不会中途短路&lt;/p&gt;
+
+&lt;h2 id=&quot;section-11&quot;&gt;移位操作符&lt;/h2&gt;
+&lt;p&gt;左移低位补零
+右移高位正数补零，负数补一（»&amp;gt;则全部补零）&lt;/p&gt;
+
+&lt;p&gt;char，byte和short在移位前会先转换成int，移位后截断转换为原来的类型
+int和long移位后的位数不会超过自身的最大位数&lt;/p&gt;
+
+&lt;h2 id=&quot;section-12&quot;&gt;字符串操作符&lt;/h2&gt;
+&lt;p&gt;JAVA不能重载操作符
+如果表达式以一个字符串开头，后续所有操作数都会被转换成字符串类型&lt;/p&gt;
+
+&lt;p&gt;JAVA可以通过编译时检查防止while(x=y)这种错误的发生，因为int类型不能转换为boolean类型，除非像true=false，则不会得到错误。同样的，也可以防止逻辑操作符和位操作符的混淆&lt;/p&gt;
+
+&lt;h2 id=&quot;section-13&quot;&gt;类型转换&lt;/h2&gt;
+&lt;p&gt;窄化转换可能会导致信息丢失
+扩展转换不必显示进行，会自动发生&lt;/p&gt;
+
+&lt;p&gt;将float和double转换成int类型时，会进行截尾而不是舍入
+对char，byte或short的数据进行算术运算或位运算时，运算之前会自动转换成int&lt;/p&gt;
+
+&lt;p&gt;表达式中出现的最大数据类型决定了最终结果的数据类型&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;JAVA没有sizeof，因为在所有机器上的数据类型大小都是没有区别的&lt;/p&gt;
+</description>
+        <pubDate>Wed, 31 Aug 2016 11:36:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/08/31/Java-operator/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/08/31/Java-operator/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：一切都是对象</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;引用操纵对象&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;创建对象&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;对象存储&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;基本类型&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;数组&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;永远不需要销毁对象&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;作用域&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;类&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;引用操纵对象&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;操纵对象的标识符是其引用&lt;/li&gt;
+  &lt;li&gt;引用不一定会与一个对象关联&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;创建对象&lt;/h2&gt;
+&lt;p&gt;使用new操作符创建新对象&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;对象存储&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;寄存器：最快的存储区，位于处理器内部，不能人为控制&lt;/li&gt;
+  &lt;li&gt;堆栈
+    &lt;ul&gt;
+      &lt;li&gt;指针向下移动，即分配内存，向上移动，即释放内存&lt;/li&gt;
+      &lt;li&gt;速度仅次于寄存器&lt;/li&gt;
+      &lt;li&gt;编译时确定，灵活性较差&lt;/li&gt;
+      &lt;li&gt;对象引用位于堆栈中，对象不在堆栈中&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;堆
+    &lt;ul&gt;
+      &lt;li&gt;用于存放所有JAVA对象&lt;/li&gt;
+      &lt;li&gt;编译器不需要知道数据的生存期，灵活性较好&lt;/li&gt;
+      &lt;li&gt;内存分配和释放比堆栈要慢&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;常量存储：常量保存在常量池，位于方法区内。垃圾回收器不会干涉方法区&lt;/li&gt;
+  &lt;li&gt;非RAM存储
+    &lt;ul&gt;
+      &lt;li&gt;流对象：对象转换成字节流进行发送&lt;/li&gt;
+      &lt;li&gt;持久化对象：对象存放在ROM上
+        &lt;h3 id=&quot;section-3&quot;&gt;基本类型&lt;/h3&gt;
+        &lt;p&gt;不需要new进行创建
+创建的是自动变量，不是引用，该变量直接存储值，置于堆栈中&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;基本类型&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;大小&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;最小值&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;最大值&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;包装器类型&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;boolean&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Boolean&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;char&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;16-bit&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Unicode 0&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Unicode $2^{16}-1$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Character&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;byte&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;8 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-128&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;+127&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Byte&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;short&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;16 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$-2^{15}$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$+2^{15}-1$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Short&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;int&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;32 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$-2^{31}$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$+2^{31}-1$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Integer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;long&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;64 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$-2^{63}$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$+2^{63}-1$&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;float&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;32 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;IEEE754&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;IEEE754&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Float&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;double&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;64 bits&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;IEEE754&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;IEEE754&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Double&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;void&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Void&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;没有无符号的数值类型
+boolean类型没有确定的大小&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;数组&lt;/h3&gt;
+&lt;p&gt;JAVA确定数组一定会被初始化，而且不能越界访问
+对象初始化为null，基本数据初始化为0&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;永远不需要销毁对象&lt;/h2&gt;
+&lt;h3 id=&quot;section-6&quot;&gt;作用域&lt;/h3&gt;
+&lt;p&gt;作用域由花括号框定
+作用域内不能有子作用域
+离开作用域后，对象依然存在，会由垃圾回收器销毁&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;类&lt;/h2&gt;
+&lt;p&gt;基本类型成员会自动被初始化
+基本成员默认值
+|基本类型|默认值|
+|:———|:——|
+|boolean|false|
+|char|’\u0000’(null)|
+|byte|(byte)0|
+|short|(short)0|
+|int|0|
+|long|0L|
+|float|0.0f|
+|double|0.0d|&lt;/p&gt;
+
+&lt;p&gt;局部变量不会被初始化（未初始化变量会引发编译错误）&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;方法&lt;/h2&gt;
+&lt;p&gt;传递的参数实际上是引用&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;JAVA没有“向前引用”问题，即类和方法的使用与定义位置无关
+java.lang是默认导入到java文件中的&lt;/p&gt;
+</description>
+        <pubDate>Wed, 31 Aug 2016 11:22:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/08/31/Java-all-is-object/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/08/31/Java-all-is-object/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Java笔记整理：对象</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;抽象过程&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;机器模型和实际待解问题模型之间的联系&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;面向对象&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;5个基本特性&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;对象的特征&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;抽象过程&lt;/h1&gt;
+&lt;p&gt;人所能够解决的问题的复杂性取决于抽象的类型和质量（能够多大程度地将问题抽象）&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;机器模型和实际待解问题模型之间的联系&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;实际待解问题模型：问题空间&lt;/li&gt;
+  &lt;li&gt;机器模型：解空间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;程序员需要解决的现实问题，必须先转化成能在机器上运行并解决的形式，两者之间的转化，需要有一个映射关系
+然而这不属于编程语言范畴，而且要建立这样一种映射难度很高&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;面向对象&lt;/h2&gt;
+&lt;p&gt;问题空间中的元素，在解空间中称为“对象”
+实质：程序通过添加新类型的对象，使自身适应特定问题的解决&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;5个基本特性&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;万物皆为对象&lt;/li&gt;
+  &lt;li&gt;程序是对象的集合，对象间通过消息来沟通&lt;/li&gt;
+  &lt;li&gt;每个对象都可以由其他对象组成&lt;/li&gt;
+  &lt;li&gt;每个对象都拥有类型&lt;/li&gt;
+  &lt;li&gt;某一类型的所有对象都能接收同样的消息&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;对象的特征&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;状态（内部数据）&lt;/li&gt;
+  &lt;li&gt;行为（方法）&lt;/li&gt;
+  &lt;li&gt;标识（唯一的地址）&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Wed, 31 Aug 2016 11:05:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/08/31/Java-object/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/08/31/Java-object/</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>Firebase初探：实时数据库(2)</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;小试牛刀&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;写&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#setvalue&quot; id=&quot;markdown-toc-setvalue&quot;&gt;setValue&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#push&quot; id=&quot;markdown-toc-push&quot;&gt;push&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#updatechildren&quot; id=&quot;markdown-toc-updatechildren&quot;&gt;updateChildren&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#runtransaction&quot; id=&quot;markdown-toc-runtransaction&quot;&gt;runTransaction&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;读&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#valueeventlistener&quot; id=&quot;markdown-toc-valueeventlistener&quot;&gt;ValueEventListener&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#childeventlistener&quot; id=&quot;markdown-toc-childeventlistener&quot;&gt;ChildEventListener&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;移除监听器&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;排序和过滤&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;排序&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;过滤&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;删&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;离线&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;数据持久化&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-10&quot; id=&quot;markdown-toc-section-10&quot;&gt;保持数据更新&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-11&quot; id=&quot;markdown-toc-section-11&quot;&gt;断开连接&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-12&quot; id=&quot;markdown-toc-section-12&quot;&gt;监听连接状态&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-13&quot; id=&quot;markdown-toc-section-13&quot;&gt;延迟&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;前面的那篇介绍了Firebase实时数据库的相关知识，那么客户端将如何与实时数据库进行沟通呢？&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;section&quot;&gt;小试牛刀&lt;/h2&gt;
+&lt;p&gt;Firebase的SDK当然是必不可少的了，为了使用数据库相关的API，需要在应用的依赖项中添加：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;compile 'com.google.firebase:firebase-database:9.4.0'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;为了和数据库交互，需要得到数据库的一个实例，而且具体的交互对象是数据库中的某个节点，这时就需要获得这个节点的一个引用：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;FirebaseDatabase&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FirebaseDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;DatabaseReference&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mRef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;students&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;通过这两句代码，我们得到了数据库的实例和节点的引用，数据的读写操作都是用DatabaseReference进行的&lt;/p&gt;
+
+&lt;p&gt;那么数据库基本的增删查改如何进行呢？我们先来看看最直观的写和读&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;写&lt;/h2&gt;
+&lt;p&gt;写操作包括了增和删，但是SDK并没有对这两个操作进行明显的区分，而是将其视为写操作，SDK中有四种写操作：
+|方法|说明|
+|:—-|:—-|
+|setValue()|在指定的路径，将数据写入或替换|
+|push()|生成唯一ID，路径进入到此ID中|
+|updateChildren()|更新此路径中的部分键值，而不是所有数据|
+|runTransaction()|进行并发更新|&lt;/p&gt;
+
+&lt;h3 id=&quot;setvalue&quot;&gt;setValue&lt;/h3&gt;
+&lt;p&gt;setValue(Object)是最基本的写操作。得到某个节点的引用后，调用setValue()即可写入数据，如果该节点原本就有数据，则会覆盖该节点下的所有数据
+由于数据库使用了JSON作为数据格式，setValue()可接受的参数类型有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Boolean&lt;/li&gt;
+  &lt;li&gt;Long&lt;/li&gt;
+  &lt;li&gt;Double&lt;/li&gt;
+  &lt;li&gt;Map&amp;lt; String, Object &amp;gt;&lt;/li&gt;
+  &lt;li&gt;List&amp;lt; Object &amp;gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;除了基本的数字和布尔值外，还可以接受自定义的对象，自定义对象的要求有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类必须要有默认构造器&lt;/li&gt;
+  &lt;li&gt;类必须为成员变量提供getter方法。没有getter方法的成员变量对应的键值将会被设为缺省值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以看到，setValue()支持Object列表，这对于同时插入多个数据很有帮助，另外还支持Map&amp;lt; String, Object &amp;gt;，利用映射的特点，我们可以将节点路径作为键，要插入的数据作为值，就可以做到在多个位置同时进行写入了&lt;/p&gt;
+
+&lt;p&gt;如果希望在指定节点下进行写入，可以使用child()方法先定位到该节点下再写入，child()方法返回DatabaseReference对象，因此可以迭代使用&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;child&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;students&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;setValue()方法将会返回一个Task对象，之前的身份认证一章介绍过Task了，因此可以给其添加一个OnCompleteListener监听器，检查数据是否成功写入&lt;/p&gt;
+
+&lt;h3 id=&quot;push&quot;&gt;push&lt;/h3&gt;
+&lt;p&gt;push()方法将会在当前节点下添加一个新的子节点，该子节点的键基于时间戳，因此是唯一的。push()创建了子节点后，会返回该子节点的引用&lt;/p&gt;
+
+&lt;h3 id=&quot;updatechildren&quot;&gt;updateChildren&lt;/h3&gt;
+&lt;p&gt;updateChildren()方法可以修改部分数据，而不影响该节点下的其他数据，只要在参数对象中提供需要修改的数据就行了
+Firebase推荐使用平展开的数据结构，一个对象的属性可能会分散在多个JSON树中，因此对于这种数据扇出的情况，使用updateChildren(Map&amp;lt; String, Children &amp;gt;)可以很方便地一次性更新分散开来的数据，这种方式的更新具有原子性&lt;/p&gt;
+
+&lt;h3 id=&quot;runtransaction&quot;&gt;runTransaction&lt;/h3&gt;
+&lt;p&gt;事务是数据库的重要课题之一。对于一篇帖子，一个用户点一次赞，数据库中对应的点赞数就要加一，这中间的过程为：客户端查找并获得该帖子的点赞数，加一，然后更新该帖子的点赞数。那么问题就来了，如果多个用户进行点赞时就需要考虑数据的同步问题
+先来看看runTransaction的用法：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;runTransaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Handler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Result&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doTransaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MutableData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mutableData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;mutableData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;mutableData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mutableData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DatabaseError&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databaseError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataSnapshot&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataSnapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;调用runTransaction()方法需要提供一个Handler对象，并实现其中的doTransaction()方法和onComplete()方法。
+更新数据的逻辑就是写在onTransaction()方法中，方法有一个MutableData对象参数，顾名思义，它是引用的数据，而且是可变的，这意味着MutableData的变动对于数据库来说时可视的，反之亦然。
+因此这就解决了事务问题，我们通过MutableData取得最新的数据，修改它，然后写回到MutableData中，万事大吉。
+如果这次事务失败了怎么办？服务器会告知客户端，客户端会重新进行事务，直到成功或者重试次数过多为止&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;读&lt;/h2&gt;
+&lt;p&gt;由于Firebase是实时数据库，检索数据将不是传统的轮询形式，而是数据库主动告知你数据的变化，因此SDK提供的检索数据不是read形式，而是使用监听器来实时获得更新数据
+Firebase提供的监听器有两种：ValueEventListener，ChildEventListener&lt;/p&gt;
+
+&lt;h3 id=&quot;valueeventlistener&quot;&gt;ValueEventListener&lt;/h3&gt;
+&lt;p&gt;该监听器将在设置时触发一次，然后会在未来值发生变化时触发
+实现该监听器需要实现其onDataChange()方法和onCancelled()方法。
+当引用对应的路径下发生数据改变时，便会触发onDataChange()回调方法，该方法将提供给定路径下的数据快照，因此尽量监听低层节点，不要在高层节点设置监听器，以防拉取大型的数据快照
+当数据访问失败或者由于安全规则被拒绝时，事件将被取消，这时会回调onCancelled()方法&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ValueEventListener&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ValueEventListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onDataChange&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataSnapshot&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataSnapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataSnapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCancelled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DatabaseError&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databaseError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addValueEventListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;代码中使用了addValueEventListener()方法添加监听器，还有另一个方法addListenerForSingleValueEvent()，这种方法设置的监听器将只会触发一次，因为ValueEventListener会在被设置到引用上时触发一次，因此addListenerForSingleValueEvent()可用于UI的初始化或者不需要持续监听的情况&lt;/p&gt;
+
+&lt;h3 id=&quot;childeventlistener&quot;&gt;ChildEventListener&lt;/h3&gt;
+&lt;p&gt;ChildEventListener将会对该节点下的各种子节点变化进行监听，包括添加，移除，更新和移动&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;onChildAdded()：该方法会对当前的所有子节点都触发一次，并且会在未来添加子节点时触发。因此这个方法可用于遍历当前节点&lt;/li&gt;
+  &lt;li&gt;onChildChanged()：每当有子节点被修改，该方法被触发&lt;/li&gt;
+  &lt;li&gt;onChildRemoved()：每当有子节点被删除，该方法被触发&lt;/li&gt;
+  &lt;li&gt;onChildMoved()：每当子节点的次序发生变化时（例如修改优先级），该方法被触发&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上方法除了onChildRemoved()没有String参数外，都有一个DataSnapshot参数和一个String参数，前者表示被添加/修改后/被移除/被移动的节点的数据，后者表示该节点前一个节点的名字&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;移除监听器&lt;/h3&gt;
+&lt;p&gt;引用调用removeEventListener(ValueEventListener)或removeEventListener(ChildEventListener)，即可移除指定的监听器
+如果在同一路径设置多个监听器，则需要一个一个移除掉，因此尽量不要在addValueEventListener()和addChildEventListener()直接使用无引用的匿名内部类
+父节点移除监听器不会影响到子节点的监听器&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;排序和过滤&lt;/h3&gt;
+&lt;p&gt;Firebase也提供了排序和过滤的基本功能。DatabaseReference是继承自Query类的，Query提供了各种排序和过滤的方法&lt;/p&gt;
+&lt;h4 id=&quot;section-5&quot;&gt;排序&lt;/h4&gt;
+&lt;p&gt;提供的排序方法有：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;方法&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;orderByChild()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;按指定子节点的值进行排序&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;orderByKey()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;按键进行排序&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;orderByValue()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;按值进行排序&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;orderByPriority()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;按优先级进行排序&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;各方法的排序策略为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;orderByChild
+  按值为null，false，true，数值（升序），字符串（升序），对象的顺序排列，值相同的和值为对象的以键名按字典顺序排列&lt;/li&gt;
+  &lt;li&gt;orderByKey
+  如果键可以解析为32位整数的，以升序排在前面
+  不能解析的字符串键以字典顺序排在后面&lt;/li&gt;
+  &lt;li&gt;orderByValue
+  排序策略与orderByChild相同&lt;/li&gt;
+  &lt;li&gt;orderByPriority
+  次序为：
+    &lt;ul&gt;
+      &lt;li&gt;没有设置优先级的在最前面&lt;/li&gt;
+      &lt;li&gt;以数字为优先级的&lt;/li&gt;
+      &lt;li&gt;以字符串为优先级的&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;有冲突的一律再按键排序&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个引用只能使用一种排序方法
+引用调用了排序方法后，返回的是Query类型引用&lt;/p&gt;
+
+&lt;h4 id=&quot;section-6&quot;&gt;过滤&lt;/h4&gt;
+&lt;p&gt;提供的过滤方法有：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;方法&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;limitToFirst()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;从排序结果开始的最大项目数&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;limitToLast()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;从排序结尾开始的最大项目数&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;startAt()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回等于或大于指定键，值或优先级的项目&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;endAt()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回小于或等于指定键，值或优先级的项目&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;equalTo()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回等于指定键，值或优先级的项目&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;其中startAt()，endAt()， equal()可以指定键，值或优先级，因此有很多重载版本&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;删&lt;/h2&gt;
+&lt;p&gt;读和写介绍了增，改和查的方法，还少了删，其实删很简单，就是数据库引用调用removeValue()方法即可，也可以通过设置值为null的方式进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;离线&lt;/h2&gt;
+&lt;h3 id=&quot;section-9&quot;&gt;数据持久化&lt;/h3&gt;
+&lt;p&gt;Firebase也在数据持久性上下了功夫
+如果有数据需要写入数据库，而此时失去了网络连接，应用仍可继续运行，写操作队列会保存在缓存中，连接恢复后继续写入数据库。那如果接着用户关闭了应用呢？不用着急手动保存，开启磁盘持久化功能可以让数据保存在ROM中，即使应用重启也不会丢失。
+开启磁盘持久化功能只需要一句代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;FirebaseDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPersistenceEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;另外，持久化功能也可以保存用户的身份验证&lt;/p&gt;
+
+&lt;h3 id=&quot;section-10&quot;&gt;保持数据更新&lt;/h3&gt;
+&lt;p&gt;Firebase提供了一种不用添加监听器的方式来保持数据更新：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;DatabaseReference&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stuRef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FirebaseDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;students&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;stuRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;keepSynced&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这样的话，系统将会自动地与数据库保持数据同步
+默认情况下，客户端可以在本地缓存10MB的数据，一旦数据量超过10MB，将会根据LRU删除缓存数据来腾出空间。但对于开启keepSynced的数据，不会被从缓存中删除&lt;/p&gt;
+
+&lt;h3 id=&quot;section-11&quot;&gt;断开连接&lt;/h3&gt;
+&lt;p&gt;有时我们需要在客户端与数据库断开连接时，在数据库上标记该用户已断开的情况，对于这种情况，Firebase提供了相关方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;DatabaseRef&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenceRef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FirebaseDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;userLog&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;presenceRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onDisconnect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Disconnected!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;通过调用onDisconnect()，客户端会通知服务器，服务器检查用户的操作是否正确，然后通知客户端是否合法，如果onDisconnect成功创建，服务器会持续监听客户端的连接状态，一旦客户端断开连接，服务器就会执行设定的操作
+可以设置的操作不止set，update和remove都可以
+可以通过添加CompletionListener来知道onDisconnect是否创建成功
+调用cancel()就可以取消onDisconnect事件&lt;/p&gt;
+
+&lt;h3 id=&quot;section-12&quot;&gt;监听连接状态&lt;/h3&gt;
+&lt;p&gt;客户端在数据库实例中加了一个“/.info/connected”的节点，该节点会根据连接状态而持续更新，因此可以监听这个节点的值变化，来达到监听连接状态的效果&lt;/p&gt;
+
+&lt;h3 id=&quot;section-13&quot;&gt;延迟&lt;/h3&gt;
+&lt;p&gt;客户端时间和服务器时间不一定相同，两者之间存在时间偏差，因此我们在记录一些跟时间有关的数据，尽量使用ServerValue.TIMESTAMP，而不是本地时间&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;以上就是关于客户端有关的Firebase数据库SDK使用介绍。通过两章关于Firebase实时数据库的介绍，我们可以大致地了解了实时数据库的使用和相关原理，总结也没什么好说的了，总之Firebase的数据库是个很强大的东西，不需要手动配置，不需要主动轮询，甚至也不要对数据库进行多少维护，这对于独立开发者来说确实是一大神器&lt;/p&gt;
+</description>
+        <pubDate>Mon, 29 Aug 2016 14:37:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/08/29/firebase-realtime-database2/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/08/29/firebase-realtime-database2/</guid>
+        
+        <category>Android</category>
+        
+        <category>Firebase</category>
+        
+        
+        <category>Android</category>
+        
+      </item>
+    
+      <item>
+        <title>Firebase初探：实时数据库(1)</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;数据结构&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;基本使用&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;读写授权&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;数据验证&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;预定义变量&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;$ 变量&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#auth&quot; id=&quot;markdown-toc-auth&quot;&gt;auth&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;索引&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;既然Firebase是做后端数据库起家的，那就自然少不了实时数据库这一块了&lt;/p&gt;
+
+&lt;p&gt;实时数据库，顾名思义，就是不需要客户端自己去轮询，而是每当监听的区域发生变动时，数据库都会通知客户端去更新，设备将会在毫秒级的时间内接收到数据更新&lt;/p&gt;
+
+&lt;p&gt;除此之外，考虑到写数据时遇到的无网络连接问题，Firebase的数据库API使用了本地缓存，使得在离线状态下也能保持读写不失败，并且会在网络恢复连接时和服务器进行同步&lt;/p&gt;
+
+&lt;p&gt;和常见的数据库服务器不同，Firebase使用JSON存储数据，这使得数据结构非常可观&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;section&quot;&gt;数据结构&lt;/h2&gt;
+
+&lt;p&gt;如前面所说，Firebase使用了JSON树来存储数据，这使得数据结构更加可观，而且也不需要考虑数据类型&lt;/p&gt;
+
+&lt;p&gt;但是这也带来了一个问题。我们平时构造JSON数据，多层嵌套的写法是很常见的事，以社区留言记录举例：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;record&quot; {
+  &quot;record1&quot;: {
+    &quot;title&quot;: &quot;TITLE1&quot;
+    &quot;content&quot;: &quot;...&quot;
+    &quot;writer&quot;: &quot;S&quot;
+    &quot;reply&quot;: {
+      &quot;reply1&quot;: {
+        &quot;sender&quot;: &quot;S1&quot;,
+        &quot;content&quot;: &quot;...&quot;
+      }
+      &quot;reply2&quot;: {
+      ...
+    }
+  },
+  &quot;record2&quot;: {
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对于该在线社区的首页来说，需要列举出各个留言的标题，但是对于多层嵌套的写法来说，就需要将整个record树下载下来了，这对于效率来说是很不利的&lt;/p&gt;
+
+&lt;p&gt;Firebase推荐使用平展数据结构，说白了就是将各个属性分开成不同的树来存放，一个表拆成多个表，也就是反规范化。上面的例子就可以这样写：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;record&quot;: {
+  &quot;record1&quot;: {
+    &quot;title&quot;: &quot;TITLE1&quot;
+    &quot;content&quot;: &quot;...&quot;
+    &quot;writer&quot;: &quot;S&quot;
+  }
+  &quot;record2&quot;: {
+  ...
+}
+
+&quot;reply&quot;: {
+  &quot;record1&quot;: {
+    &quot;reply1&quot;: {
+      &quot;sender&quot;: &quot;S1&quot;,
+      &quot;content&quot;: &quot;...&quot;
+    }
+    &quot;reply2&quot;: {
+    ...
+  }
+  &quot;record2&quot;: {
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这样就能保证读取时的效率了&lt;/p&gt;
+
+&lt;p&gt;还是存在反规范化不能解决的问题，例如双向关系，对于一个用户来说可以从属于一个群组，一个群组又包含了用户，这时可以使用索引来解决：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;user&quot;: {
+  &quot;u1&quot;: {
+    groups: {
+      &quot;g1&quot;: true
+      ...
+    }
+  }
+  ...
+}
+
+&quot;group&quot;: {
+  &quot;g1&quot;: {
+    members: {
+      &quot;u1&quot;: true
+      ...
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;也就是说，存在双向关系的两个元组，将对方的元素作为”索引“来使用。这样就使得在访问这样的数据时可以保证效率，当然这里就要牺牲了一点数据冗余度了&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;基本使用&lt;/h2&gt;
+
+&lt;p&gt;进入控制台后，选择database，可以看到右侧窗口有“数据”，“规则”和“使用情况”三个选项卡，“数据”会对JSON树进行图形化显示，“使用情况”则是对数据库的带宽，存储空间，连接数和总发送字节进行统计。关键是“规则”选项，在这里，可以使用类似JavaScript的语法，对数据库的读写权限，数据规则和索引进行设置&lt;/p&gt;
+
+&lt;p&gt;Firebase数据库的规则主要分四种：
+|规则|说明|
+|:—–|:——|
+|.read|允许用户读取数据的条件|
+|.write|允许用户写入数据的条件|
+|.validate|定义值的数据类型，格式等条件|
+|.indexOn|定义加入索引的项|&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;读写授权&lt;/h3&gt;
+&lt;p&gt;数据库的默认rule是：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;auth != null&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.write&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;auth != null&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这里表示根节点读写的条件是认证不为空，说明需要身份验证才能获得权限（auth是规则的预定义变量，后面会讲到）&lt;/p&gt;
+
+&lt;p&gt;对应字符串中的逻辑计算结果决定了此节点下的读写权限&lt;/p&gt;
+
+&lt;p&gt;.read和.write是级联的，也就是说，父节点的读写权限直接决定子节点的读写权限，子节点的设置将被忽略&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;father&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;child&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;由于父节点禁止了读取，即使子节点允许读取，也是没有用的&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;数据验证&lt;/h3&gt;
+&lt;p&gt;.validate将会对新写入的数据进行验证，验证通过的数据方可写入。因此.validate发挥作用需要.write为true，另外，因为.validate是检查新数据，因此常需要和newData变量搭配使用（newData是预定义常量，表示写入操作后应有的数据，包含新数据和未改动数据）&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.validate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;newData.isNumber() &amp;amp;&amp;amp; newData.val() &amp;gt;= 0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;有关上面的函数问题，下面会讲到，可以看出年龄要求写入的数据是数字，并且值的大小不小于0&lt;/p&gt;
+
+&lt;p&gt;.validate是不级联的，只要新数据的任意一个子节点不满足验证要求的话，数据就不能写入&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;预定义变量&lt;/h4&gt;
+&lt;p&gt;为了方便引用数据，用户认证等信息，数据库规则提供了如下预定义变量
+|预定义变量|说明|
+|:———–|:—-|
+|now|从时间纪元起到当前时间的毫秒数|
+|root|RuleDataSnapshot，当前操作所在路径的根目录|
+|newData|RuleDataSnapshot，表示写入操作后应有的数据，包含新数据和未改动数据|
+|data|RuleDataSnapshot，表示原先的数据|
+|$variable|获得对应的节点名|
+|auth|表示通过验证的用户身份|&lt;/p&gt;
+
+&lt;p&gt;其中root，newData和data是RuleDataSnapshot类型，从名字可以看出，这些都是规则所用的数据快照，因此我们可以使用相关的一些函数获得其中的信息：
+|RuleDataSnapshot函数|说明|
+|:————————|:—–|
+|val()|读取明确的子节点内容，这要求需要先用child()定位到叶子节点，然后再用val()读取内容。直接对一块数据进行val()不会返回想要的“一块数据”|
+|child()|返回参数所给的相对路径，所对应的节点的快照数据|
+|parent()|返回当前节点的父节点，所对应的快照数据。如果父节点不存在，会导致这条规则直接失败|
+|hasChild(path)|如果这个子节点存在返回true|
+|hasChildren([children])|如果子节点列表都存在返回true|
+|exists()|如果此数据快照中有数据则返回true|
+|getPriority()|返回此数据快照中数据的优先级|
+|isNumber()|如果其中的数据是数字，返回true|
+|isString()|如果其中的数据是字符串，返回true|
+|isBoolean()|如果其中的数据是布尔类型，返回true|&lt;/p&gt;
+
+&lt;p&gt;另外还支持字符串函数和各种操作符，详情可参阅&lt;a href=&quot;https://firebase.google.com/docs/reference/security/database/&quot;&gt;https://firebase.google.com/docs/reference/security/database/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-5&quot;&gt;$ 变量&lt;/h4&gt;
+&lt;p&gt;使用$变量可以获得当前节点的名字的字符串，例如：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;students&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;$stu_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.write&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$stu_id.contains('sysu')&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面的规则说明，对于修改一个学生的姓名，要求该学生的id中必须包含“sysu”。&lt;/p&gt;
+
+&lt;p&gt;需要注意的是：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;这条规则将会对students节点中的所有子节点有效&lt;/li&gt;
+  &lt;li&gt;$变量所得到的都是字符串&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;auth&quot;&gt;auth&lt;/h4&gt;
+&lt;p&gt;如果用户是经过身份认证的，那么auth变量将不会是null，auth的属性有：
+|属性|说明|
+|:—-|:—-|
+|provider|所使用的身份认证方法，passsword，anonymous，google，facebook，twitter或github|
+|uid|用户ID|&lt;/p&gt;
+
+&lt;p&gt;使用auth可以确保只有用户本人才能访问其信息：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;users&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;$user_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$user_id === auth.uid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;.write&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$user_id === auth.uid&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;索引&lt;/h3&gt;
+
+&lt;p&gt;使用.indexOn来规划索引，索引可以帮助提高检索性能：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;rules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;students&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;indexOn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;服务器设置了.indexOn规则后，客户端使用orderByValue()向服务器检索学生信息，就能获得更好的性能&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;以上就是Firebase实时数据库在服务器方面的信息，可以看到，Firebase的后端服务器完全不需要开发者搭建，开发者只需要管理好数据结构以及相关规则即可。&lt;/p&gt;
+
+&lt;p&gt;在数据结构方面，对于Firebase所使用的JSON树结构，需要注意一下不要使用多层嵌套的写法，而是进行反规范化，虽然损失了冗余度，但对于性能提升来说是必要的。Firebase还支持JSON导入和导出，这也使得数据的转移非常方便。&lt;/p&gt;
+
+&lt;p&gt;在规则方面，Firebase使用了JavaScript的写法，设置起来也是相当方便的。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Aug 2016 16:57:00 +0800</pubDate>
+        <link>http://mahong978.github.io/2016/08/28/firebase-realtime-database/</link>
+        <guid isPermaLink="true">http://mahong978.github.io/2016/08/28/firebase-realtime-database/</guid>
+        
+        <category>Android</category>
+        
+        <category>Firebase</category>
+        
+        
+        <category>Android</category>
+        
+      </item>
+    
+  </channel>
+</rss>

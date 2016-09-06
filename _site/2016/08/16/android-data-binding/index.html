@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Data binding学习</title>
+    <meta name="description" content="Google在去年下半年的时候推出了Data binding的support包，当时用起来似乎挺麻烦，不过随着Android Studio 2.0的发展，Google不仅让Data binding支持包变得更易用，也提升了AS对Data binding在IDE上的支持。随着界面的内容越来越丰富以及项目工程的扩大，...">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--<link rel="stylesheet" href=" /css/syntax.css ">-->
+    <link rel="canonical" href="http://mahong978.github.io/2016/08/16/android-data-binding/">
+    <link rel="alternate" type="application/rss+xml" title="Mahong" href="http://mahong978.github.io /feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c4e3e6dfb970411c574e62c2c06e0c41";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72449510-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">Mahong</a>
+        <small>Android Developer</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>主页
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>存档
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>分类
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>标签
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/collection/">
+                        
+                            <i class="fa fa-bookmark"></i>Collections
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/demo/">
+                        
+                            <i class="fa fa-play"></i>Demo
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Data binding学习</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2016-08-16
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Android" title="Category: Android" rel="category">Android</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#Android" title="Tag: Android" rel="tag">Android</a-->
+        <a href="/tag/#Android" title="Tag: Android" rel="tag">Android</a>&nbsp;
+    
+        <!--a href="/tag/#data-binding" title="Tag: data-binding" rel="tag">data-binding</a-->
+        <a href="/tag/#data-binding" title="Tag: data-binding" rel="tag">data-binding</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">环境配置</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">小试牛刀</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">事件处理</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">一些细节</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">变量</a></li>
+  <li><a href="#binding" id="markdown-toc-binding">自定义Binding类名</a></li>
+  <li><a href="#includes" id="markdown-toc-includes">Includes</a></li>
+  <li><a href="#section-5" id="markdown-toc-section-5">表达式</a></li>
+  <li><a href="#section-6" id="markdown-toc-section-6">数据对象</a>    <ul>
+      <li><a href="#observable" id="markdown-toc-observable">Observable对象</a></li>
+      <li><a href="#observable-1" id="markdown-toc-observable-1">Observable域</a></li>
+      <li><a href="#observable-2" id="markdown-toc-observable-2">Observable集合</a></li>
+    </ul>
+  </li>
+  <li><a href="#binding-1" id="markdown-toc-binding-1">Binding类</a>    <ul>
+      <li><a href="#id" id="markdown-toc-id">具有ID的控件</a></li>
+      <li><a href="#section-7" id="markdown-toc-section-7">变量</a></li>
+      <li><a href="#viewstub" id="markdown-toc-viewstub">ViewStub</a></li>
+      <li><a href="#binding-2" id="markdown-toc-binding-2">高级Binding</a>        <ul>
+          <li><a href="#section-8" id="markdown-toc-section-8">动态变量</a></li>
+          <li><a href="#binding-3" id="markdown-toc-binding-3">立即Binding</a></li>
+          <li><a href="#section-9" id="markdown-toc-section-9">后台线程</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Google在去年下半年的时候推出了Data binding的support包，当时用起来似乎挺麻烦，不过随着Android Studio 2.0的发展，Google不仅让Data binding支持包变得更易用，也提升了AS对Data binding在IDE上的支持。</p>
+
+<p>随着界面的内容越来越丰富以及项目工程的扩大，在代码里控制UI控件的显示和更新会变得越来越麻烦，你会发现你需要写大量的findViewById函数，获取大量的控件实例，看着都嫌累。</p>
+
+<p>Google推出Data binding就是为了缓解这种问题，它可以让一些基本的UI代码转移到XML资源文件中。Data binding其实就是Android MVVM框架的核心，至于MVVM和MVP有什么不同，看模式图很难看出来，其实MVC，MVP，MVVM这些模式随着Web发展出来的，感觉这些也只是一些理论，随着开发者的使用很容易有不同的实现版本出现，可能MVVM和MVP也只是大同小异罢了。
+根据MVVM的定义，分为Model，View和ViewModel（也就是Presenter啦），不过在学习了Data binding后，个人感觉ViewModel和Presenter的差别在于，Presenter更多的是扮演着请求和响应的加工和转交，而ViewModel则更像M和V二者的过渡态，其中一方的改变都可以在VM上看出来，并且在另一方上自动产生相应的变化。</p>
+
+<p>好了不废话了，接下来就开始对Data binding的学习</p>
+
+<hr />
+<h2 id="section">环境配置</h2>
+<p>正如data binding是一个support library，因此只要在SDK Manager里下载最新的Android Support Repository就能获得。</p>
+
+<p>Data binding支持Android 2.1（API 7）以上版本，并且需要Android Studio 1.3以上版本提供兼容</p>
+
+<p>在对应module的build.gradle中，进行如下配置：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>android {
+	...
+	dataBinding {
+		enabled true
+	}
+}
+</code></pre>
+</div>
+
+<p>这样就配置完毕了。要注意的一点是，如果依赖的库中使用了data binding，那么app module中也需要进行配置</p>
+
+<hr />
+
+<h2 id="section-1">小试牛刀</h2>
+<p>假设有一个TextView，需要显示一个字符串，最一般的做法就是在Activity中用findViewById获得这个控件的实例，然后调用setText方法设置字符串。下面来看看data binding的做法
+和普通的布局文件不同的一点是，使用data binding必须用layout标签作为根元素，里面紧接着是data标签，然后才是原来的布局</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;layout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;data&gt;</span>
+        <span class="nt">&lt;variable</span>
+            <span class="na">name=</span><span class="s">"student"</span>
+            <span class="na">type=</span><span class="s">"com.example.mahong.test.Student"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/data&gt;</span>
+    <span class="nt">&lt;LinearLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+        <span class="na">android:orientation=</span><span class="s">"vertical"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;TextView</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:text=</span><span class="s">"@{student.name}"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;TextView</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:text=</span><span class="s">"@{student.number}"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+<span class="nt">&lt;/layout&gt;</span>
+</code></pre>
+</div>
+
+<p>假设我们需要显示一个学生的名字和学号，正如上面LinearLayout中写的，它也是原来的布局。这里稍微有点看不懂的就是data标签，它里面有个variable标签，顾名思义，表示的就是一个变量，而从name和type属性也可以看得出它们分别表示这个变量的名字和类型。</p>
+
+<p>再看看这两个TextView，它们的text属性设置使用到了特殊的表达式，格式是@{}，中间的语句引用了这个变量的name和number成员</p>
+
+<p>没错，我们需要创建一个POJO类，来提供数据。这个POJO类可以是这样的：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">number</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Student</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>也可以是这样的一个java Bean：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">number</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Student</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNumber</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这取决你对数据的要求，如果你希望提供的数据是一次性的，不容修改的，就使用第一种。总之必须要让你需要用到的域是可访问的（使其为public或者提供get方法）</p>
+
+<p>类也定义好了，那么xml中使用到的这个变量是由谁提供的呢？当然就是Model了，对应的也就是Activity：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="n">ActivityMainBinding</span> <span class="n">binding</span> <span class="o">=</span> <span class="n">DataBindingUtil</span><span class="o">.</span><span class="na">setContentView</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+    <span class="n">binding</span><span class="o">.</span><span class="na">setStudent</span><span class="o">(</span><span class="k">new</span> <span class="n">Student</span><span class="o">(</span><span class="s">"Mahong"</span><span class="o">,</span> <span class="s">"978"</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Data binding会自动地产生一个Binding类，类名默认是对应xml文件名地PASCAL命名形式加上“Binding”后缀，位置默认在module所在包中的databinding包</p>
+
+<p>把原先的setContentView方法替换成DataBindingUtil.setContentView方法，需要提供Context对象和对应的layout ID，该方法会返回对应的Binding类，然后调用类中的set方法提供Student实例</p>
+
+<p>当然了，也可以动态地inflate：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LayoutTestBinding</span> <span class="n">binding1</span> <span class="o">=</span> <span class="n">LayoutTestBinding</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">getLayoutInflater</span><span class="o">());</span>
+</code></pre>
+</div>
+<p>至于在列表适配器中inflate则还要加入viewRoot等参数</p>
+
+<p>就这样，Module，View和ViewModel的设置就完成了</p>
+
+<hr />
+<h2 id="section-2">事件处理</h2>
+<p>Data binding允许通过表达式处理视图分发的事件。根据Google官方说明，有两种方式：</p>
+
+<ul>
+  <li>方法引用（Method References）</li>
+  <li>监听器绑定（Listener Bindings）</li>
+</ul>
+
+<p>在方法引用的方式中，事件将直接绑定到一个方法上，这跟我们之前常用的onClick绑定到Activity的一个方法上的做法相似，不过方法引用的一个好处就是它可以在编译时检查方法签名是否符合要求。方法引用的签名必须和监听器方法的签名一致，比如OnClickListener的onClick方法，data binding会根据你提供的方法，自动生成一个监听器</p>
+
+<p>虽然要求签名一致，但我发现方法名不同也是可以的。。。可能这里指的是返回类型和参数列表吧</p>
+
+<p>我尝试了一下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;Button
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="mahong"
+	android:onClick="@{listener::onClick}"/&gt;
+</code></pre>
+</div>
+
+<p>发现AS居然对格式报错</p>
+
+<p><img src="http://img.blog.csdn.net/20160816152716708" alt="" /></p>
+
+<p>虽然报错但编译还是能通过的，而且运行也是没问题</p>
+
+<p>后来在Android Developer的Youtube频道上看到的写法是这样的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>android:onClick="@{listener.onClick}"
+</code></pre>
+</div>
+
+<p>虽然AS没报错了，但方法那边还是警告never used</p>
+
+<p>不知道是库的问题还是IDE的支持没做好，可能后面的版本会修复吧</p>
+
+<p>监听器绑定（Listener Bindings）绑定的是一个Lambda表达式，当事件发生时进行表达式的计算，而方法引用则是数据绑定时就创建了监听器，因此listener bindings的方法要更为灵活</p>
+
+<p>这里要吐槽一下，既然listener bindings是绑定表达式，那为什么还要起这么一个很容易混淆的名字。。。不过这也只是个叫法罢了</p>
+
+<p>可以使用一个回调函数：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>android:onClick="@{() -&gt; listener.handle(true)}"
+</code></pre>
+</div>
+
+<p>可以看到，这里并没有给出onClick方法所需要的View参数，这是因为Listener Bindings对监听方法参数提供了两种选择，要么都忽略掉，要么每个参数都起个名字，这取决你是否需要使用到这些参数。所以上面那个语句可以这样写：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>android:onClick="@{(view) -&gt; listener.handle(true)}"
+</code></pre>
+</div>
+
+<p>Data binding会尽量避免运行时安全，因此Data binding会对不同的类型提供默认的返回值和初始值，object对应null，int对应0，boolean对应false，等等</p>
+
+<p>注意，有些View的点击监听器不是通过onClick属性设置的：</p>
+
+<ul>
+  <li>SearchView    android:onSearchClick</li>
+  <li>ZoomControls    android:onZoomIn，android:onZoomOut</li>
+</ul>
+
+<hr />
+<h2 id="section-3">一些细节</h2>
+<p>在data标签还可以使用import：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;data&gt;
+    &lt;import type="com.example.mahong.test.Listener" /&gt;
+&lt;/data&gt;
+</code></pre>
+</div>
+
+<p>效果相当于java的import，可以直接使用这个类中的静态成员</p>
+
+<p>如果import了两个同名的类，则需要给其中一个起个别名：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;data&gt;
+    &lt;import type="android.view.View" /&gt;
+    &lt;import type="com.example.mahong.test.View"
+            alias="MyView"/&gt;
+&lt;/data&gt;
+</code></pre>
+</div>
+
+<p>java.lang.*是自动import的，所以可以直接使用</p>
+
+<hr />
+<h2 id="section-4">变量</h2>
+
+<p>上面所写的变量都是编译时确定下来的，这些变量发生的变化将不能被观察到，也就是说不能动态地产生视图的变化。如果需要动态的反射机制，则需要使对应的类继承自Observable或者是一个observable collection，后面会讲到</p>
+
+<p>如果不同的configuration有对应的layout，要注意变量名冲突问题</p>
+
+<p>一个特殊的变量context是默认产生的，它表示当前root view的Context，可直接使用</p>
+
+<hr />
+<h2 id="binding">自定义Binding类名</h2>
+
+<p>布局对应的Binding类的类名，默认是该布局名字的PASCAL命名形式（去掉符号，单词首字母大写），最后加上Binding。当然也可以自定义Binding的类名：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;data class="MyCustom"&gt;
+    ...
+&lt;/data&gt;
+</code></pre>
+</div>
+
+<p>注意，这样产生的Binding类名将是MyCustom，而不是MyCustomBinding</p>
+
+<p>所有的Binding类都默认放在app包下的databinding包。可以自定义位置：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;data class=".MyCustom"&gt;
+    ...
+&lt;/data&gt;
+</code></pre>
+</div>
+
+<p>这样将直接放在app包中。当然也可以设置完整的路径。</p>
+
+<hr />
+<h2 id="includes">Includes</h2>
+<p>如果一个layout中include了另一个layout，可以将自己的变量赋值给它的变量：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;layout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:bind=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;data&gt;</span>
+        <span class="nt">&lt;variable</span>
+            <span class="na">name=</span><span class="s">"text"</span>
+            <span class="na">type=</span><span class="s">"String"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/data&gt;</span>
+    <span class="nt">&lt;LinearLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+        <span class="na">android:orientation=</span><span class="s">"vertical"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;include</span> <span class="na">layout=</span><span class="s">"@layout/layout_test1"</span>
+            <span class="na">bind:text=</span><span class="s">"@{text}"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+<span class="nt">&lt;/layout&gt;</span>
+</code></pre>
+</div>
+
+<hr />
+<h2 id="section-5">表达式</h2>
+<p>可以使用的java元素有：</p>
+
+<ul>
+  <li>数学运算符</li>
+  <li>字符串连接符</li>
+  <li>逻辑运算符</li>
+  <li>位运算符</li>
+  <li>一元符</li>
+  <li>位移运算符</li>
+  <li>比较符</li>
+  <li>instance of</li>
+  <li>小括号</li>
+  <li>方法调用</li>
+  <li>域访问</li>
+  <li>数组访问[]</li>
+  <li>三元运算符</li>
+</ul>
+
+<p>不能使用的有：</p>
+
+<ul>
+  <li>this</li>
+  <li>super</li>
+  <li>new</li>
+  <li>显示泛型调用（啥意思？）</li>
+</ul>
+
+<p>支持空合并运算符??</p>
+
+<p>无论域是否私有，都可以直接用 . 访问，会自动调用其get方法</p>
+
+<p>可以在表达式中直接写字符串，但是字符串的引号不能和整个表达式所在的引号相同，可以使用单引号 ‘ 或者反引号 `</p>
+
+<p>可以在表达式中直接调用资源</p>
+
+<hr />
+<h2 id="section-6">数据对象</h2>
+<p>普通的POJO不能用于更新UI</p>
+
+<h3 id="observable">Observable对象</h3>
+
+<p>实现Observable接口，可以让binding附上一个监听器，来监听约束对象的属性变化</p>
+
+<p>Observable接口包含了添加和溢出监听器的机制，但是通知的任务交给了开发者。因此一般选择继承BaseObservable基类</p>
+
+<p>需要在get方法添加Bindable注解，在set方法中最后进行通知：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Textpack</span> <span class="kd">extends</span> <span class="n">BaseObservable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Textpack</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bindable</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getText</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setText</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="n">notifyPropertyChanged</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">mahong</span><span class="o">.</span><span class="na">test</span><span class="o">.</span><span class="na">BR</span><span class="o">.</span><span class="na">text</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>BR类是自动生成的</p>
+
+<h3 id="observable-1">Observable域</h3>
+
+<p>一种更方便的写法是</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Textpack</span> <span class="kd">extends</span> <span class="n">BaseObservable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">ObservableField</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObservableField</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这种方法提供了更细粒度的方式，每个域都是独立的observable对象</p>
+
+<p>另外还为各种基本类型提供了对应的类，如ObservableBoolean，ObservableInt等</p>
+
+<p>ObservableField支持自动打包和解包</p>
+
+<p>设置数据时则这样写：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">TextPack</span> <span class="n">pack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TextPack</span><span class="o">();</span>
+<span class="n">pack</span><span class="o">.</span><span class="na">text</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"mahong"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">text</span> <span class="o">=</span> <span class="n">pack</span><span class="o">.</span><span class="na">text</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<h3 id="observable-2">Observable集合</h3>
+<p>Data binding只提供了ObservableArrayMap和ObservableArrayList两个已实现了的容器类</p>
+
+<p>这两个容器类分别实现的是ObservableMap和ObservableList接口</p>
+
+<hr />
+<h2 id="binding-1">Binding类</h2>
+<p>这些自动生成的Binding类相当于MVVM结构中的VM，是数据和视图之间的桥梁。这些类都继承自ViewDataBinding</p>
+
+<p>绑定一个布局，一般的写法是静态的inflate：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LayoutTestBinding</span> <span class="n">binding1</span> <span class="o">=</span> <span class="n">LayoutTestBinding</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">inflater</span><span class="o">);</span>
+<span class="n">LayoutTestBinding</span> <span class="n">binding1</span> <span class="o">=</span> <span class="n">LayoutTestBinding</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">inflater</span><span class="o">,</span> <span class="n">viewGroup</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>有时候Binding类的具体类型不可知，则可以根据layout进行创建：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">ViewDataBinding</span> <span class="n">binding</span> <span class="o">=</span> <span class="n">DataBindingUtil</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">LayoutInflater</span><span class="o">,</span> <span class="n">layoutId</span><span class="o">,</span>
+    <span class="n">parent</span><span class="o">,</span> <span class="n">attachToParent</span><span class="o">);</span>
+<span class="n">ViewDataBinding</span> <span class="n">binding</span> <span class="o">=</span> <span class="n">DataBindingUtil</span><span class="o">.</span><span class="na">bindTo</span><span class="o">(</span><span class="n">viewRoot</span><span class="o">,</span> <span class="n">layoutId</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="id">具有ID的控件</h3>
+<p>如果一个控件具有ID，那么所在layout的Binding类将会有对应的public final域，对于某些View来说，这种方式会比findViewById更快</p>
+
+<h3 id="section-7">变量</h3>
+<p>binding layout中的每个变量都会在对应的Binding类中有访问方法</p>
+
+<h3 id="viewstub">ViewStub</h3>
+<p>ViewStub有助于Android的布局性能优化，其对应的子布局在正式inflate之前不会显示出来，在inflate之后，这个ViewStub引用会被置空</p>
+
+<p>那么问题来了，Binding类中的View都是final的，ViewStub在inflate后又要置空，那怎么办呢</p>
+
+<p>于是Android新添加了类ViewStubProxy，相当于在ViewStub外套了层壳，ViewStub置空并不会影响到它的代理。从Binding对象获得的View是ViewStubProxy类型</p>
+
+<p>如果这个ViewStub对应的布局也是一个binding layout，那么需要给它的ViewStubProxy注册一个OnInflateListener，在inflate发生后进行相应的处理。示例如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">binding</span><span class="o">.</span><span class="na">viewstub</span><span class="o">.</span><span class="na">setOnInflateListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ViewStub</span><span class="o">.</span><span class="na">OnInflateListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInflate</span><span class="o">(</span><span class="n">ViewStub</span> <span class="n">viewStub</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LayoutTest1Binding</span> <span class="n">binding1</span> <span class="o">=</span> <span class="n">DataBindingUtil</span><span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
+        <span class="n">binding1</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"mahong"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<p>由于我们在binding.viewstub是ViewStubProxy类型，因此要想ViewStub显示出来，就要先调用getViewStub()方法获得对应的ViewStub：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">binding</span><span class="o">.</span><span class="na">viewstub</span><span class="o">.</span><span class="na">getViewStub</span><span class="o">().</span><span class="na">inflate</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p>可能是IDE的支持还没做好，ctrl+左查看binding.viewstub的类型时仍然是ViewStub类型，导致上面那条语句在现在最新的AS中还是红的，但是编译是通过的</p>
+
+<h3 id="binding-2">高级Binding</h3>
+<h4 id="section-8">动态变量</h4>
+<p>有些时候，Binding类的确切类型可能无法获知。比如在RecyclerView的适配器中，因为绑定的layout是任意的，所以无法知道确切的Binding类型，但在onBindViewHolder方法被调用的时候必须对其进行设置</p>
+
+<p>所以需要在ViewHolder中保存其对应的Binding对象</p>
+
+<p>另外，由于通用性，ViewHolder中的Binding引用需要为ViewDataBinding类型，所以在onBindViewHolder方法中设置其中的变量时，需要使用setVariable方法</p>
+
+<h4 id="binding-3">立即Binding</h4>
+<p>当一个变量或者observable改变，在下一帧刷新前会进行binding的调度。有时候会需要binding立即执行，这时可以调用executePendingBingings()</p>
+
+<h4 id="section-9">后台线程</h4>
+<p>Data binding在计算时会本地化每个变量或域，因此不用担心同步问题（集合除外）</p>
+
+<p>后面的自定义Setter和Conversion好像应用的空间不大，以后有空再研究吧</p>
+
+<p>就酱</p>
+
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/08/29/firebase-realtime-database2/">Firebase初探：实时数据库(2)
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/08/28/firebase-realtime-database/">Firebase初探：实时数据库(1)
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>上一篇</strong> <a href="/2016/08/14/to-do/">TODO-MVP源码解析</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>下一篇</strong> <a href="/2016/08/19/android-job-scheduler/">JobScheduler学习</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="http://mahong978.github.io/2016/08/16/android-data-binding/" data-title="Data binding学习" data-url="http://mahong978.github.io/2016/08/16/android-data-binding/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {
+        short_name: "mahong978"
+    };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             个人博客 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/mahong978" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:1350374964@qq.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>  
+            <a href="http://weibo.com/mahq" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a>  
+            <a href="https://www.zhihu.com/people/ma-hong-66" title="Zhihu"><i class="iconfont">&#xe829;</i></a>   
+            <a href="https://www.facebook.com/mahong978" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>    
+        </p>
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" class="scroll">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/scroll.min.js " charset="utf-8"></script>
+  </body>
+
+</html>

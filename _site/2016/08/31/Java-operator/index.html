@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Java笔记整理：操作符</title>
+    <meta name="description" content="《Java编程思想》第三章">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--<link rel="stylesheet" href=" /css/syntax.css ">-->
+    <link rel="canonical" href="http://mahong978.github.io/2016/08/31/Java-operator/">
+    <link rel="alternate" type="application/rss+xml" title="Mahong" href="http://mahong978.github.io /feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c4e3e6dfb970411c574e62c2c06e0c41";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72449510-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">Mahong</a>
+        <small>Android Developer</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>主页
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>存档
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>分类
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>标签
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/collection/">
+                        
+                            <i class="fa fa-bookmark"></i>Collections
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/demo/">
+                        
+                            <i class="fa fa-play"></i>Demo
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Java笔记整理：操作符</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2016-08-31
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#java" title="Category: java" rel="category">java</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#java" title="Tag: java" rel="tag">java</a-->
+        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#java" id="markdown-toc-java">JAVA操作符</a></li>
+  <li><a href="#section" id="markdown-toc-section">优先级</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">赋值</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">算术操作符</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">递增递减操作符</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">关系操作符</a></li>
+  <li><a href="#section-5" id="markdown-toc-section-5">逻辑操作符</a></li>
+  <li><a href="#section-6" id="markdown-toc-section-6">直接常量</a>    <ul>
+      <li><a href="#section-7" id="markdown-toc-section-7">前缀</a></li>
+      <li><a href="#section-8" id="markdown-toc-section-8">后缀</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-9" id="markdown-toc-section-9">指数计数法</a></li>
+  <li><a href="#section-10" id="markdown-toc-section-10">位操作符</a></li>
+  <li><a href="#section-11" id="markdown-toc-section-11">移位操作符</a></li>
+  <li><a href="#section-12" id="markdown-toc-section-12">字符串操作符</a></li>
+  <li><a href="#section-13" id="markdown-toc-section-13">类型转换</a></li>
+</ul>
+
+<h2 id="java">JAVA操作符</h2>
+<p>除“=”，“==”和“!=”外，所有操作符只能操作基本数据类型
+String类支持“+”和“+=”</p>
+
+<h2 id="section">优先级</h2>
+<p>在连加的表达式中，String类型的元素后面的所有元素，都会自动转换成String类型</p>
+
+<h2 id="section-1">赋值</h2>
+<p>常量不能作为左值
+基本数据变量存储的是实际的数值，赋值时会复制实际的内容
+对象赋值时实际上是复制引用，而不是对象本身</p>
+
+<h2 id="section-2">算术操作符</h2>
+<p>整数除法会直接去掉小数位，而不是四舍五入
+一元加操作符，像“+4”，会将较小类型的操作数提升为int</p>
+
+<h2 id="section-3">递增递减操作符</h2>
+<p>递增递减操作符是唯一具有“副作用”的操作符，即改变操作数</p>
+
+<h2 id="section-4">关系操作符</h2>
+<p>关系操作符会生成一个boolean结果
+boolean类型不支持除“==”和“!=”外的比较符</p>
+
+<p>对象间进行比较时，实际上比较的是两个引用
+JAVA内置的一些类的equals方法其实是重载了Object类的equals方法，equals方法默认比较引用</p>
+
+<h2 id="section-5">逻辑操作符</h2>
+<p>逻辑操作符会生成一个boolean结果
+逻辑操作符的操作数只能是boolean类型，JAVA不允许将非布尔值当作布尔值使用
+JAVA存在短路特性</p>
+
+<h2 id="section-6">直接常量</h2>
+
+<h3 id="section-7">前缀</h3>
+<ol>
+  <li>十六进制：0x 或 0X</li>
+  <li>八进制：0</li>
+  <li>没有二进制（可以使用Integer.toBinaryString()方法获得）</li>
+</ol>
+
+<h3 id="section-8">后缀</h3>
+<ol>
+  <li>long：l 或 L</li>
+  <li>double：d 或 D</li>
+  <li>float：f 或 F</li>
+</ol>
+
+<p>试图将变量初始化成超出自身范围的值，会得到一条错误信息
+如果没有后缀，会默认转换成int值</p>
+
+<h2 id="section-9">指数计数法</h2>
+<p>编译器会将指数作为double类型处理</p>
+
+<h2 id="section-10">位操作符</h2>
+<p>~是一元操作符，因此没有~=
+boolean类型可以应用于位操作符，但不能使用 ~ 操作符
+位操作符表达式不会中途短路</p>
+
+<h2 id="section-11">移位操作符</h2>
+<p>左移低位补零
+右移高位正数补零，负数补一（»&gt;则全部补零）</p>
+
+<p>char，byte和short在移位前会先转换成int，移位后截断转换为原来的类型
+int和long移位后的位数不会超过自身的最大位数</p>
+
+<h2 id="section-12">字符串操作符</h2>
+<p>JAVA不能重载操作符
+如果表达式以一个字符串开头，后续所有操作数都会被转换成字符串类型</p>
+
+<p>JAVA可以通过编译时检查防止while(x=y)这种错误的发生，因为int类型不能转换为boolean类型，除非像true=false，则不会得到错误。同样的，也可以防止逻辑操作符和位操作符的混淆</p>
+
+<h2 id="section-13">类型转换</h2>
+<p>窄化转换可能会导致信息丢失
+扩展转换不必显示进行，会自动发生</p>
+
+<p>将float和double转换成int类型时，会进行截尾而不是舍入
+对char，byte或short的数据进行算术运算或位运算时，运算之前会自动转换成int</p>
+
+<p>表达式中出现的最大数据类型决定了最终结果的数据类型</p>
+
+<hr />
+<p>JAVA没有sizeof，因为在所有机器上的数据类型大小都是没有区别的</p>
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/05/Java-polymorphism/">Java笔记整理：多态
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/05/Java-reuse-class/">Java笔记整理：复用类
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/04/Java-access-control/">Java笔记整理：访问权限控制
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/02/Java-initialization-and-clean/">Java笔记整理：初始化和清理
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/02/Java-control-execution/">Java笔记整理：控制执行流程
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/08/31/Java-all-is-object/">Java笔记整理：一切都是对象
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>上一篇</strong> <a href="/2016/08/31/Java-all-is-object/">Java笔记整理：一切都是对象</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>下一篇</strong> <a href="/2016/09/02/Java-control-execution/">Java笔记整理：控制执行流程</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="http://mahong978.github.io/2016/08/31/Java-operator/" data-title="Java笔记整理：操作符" data-url="http://mahong978.github.io/2016/08/31/Java-operator/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {
+        short_name: "mahong978"
+    };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             个人博客 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/mahong978" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:1350374964@qq.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>  
+            <a href="http://weibo.com/mahq" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a>  
+            <a href="https://www.zhihu.com/people/ma-hong-66" title="Zhihu"><i class="iconfont">&#xe829;</i></a>   
+            <a href="https://www.facebook.com/mahong978" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>    
+        </p>
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" class="scroll">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/scroll.min.js " charset="utf-8"></script>
+  </body>
+
+</html>

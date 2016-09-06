@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>面向接口编程与面向实现编程</title>
+    <meta name="description" content="最近拜读了四人组的经典名作《设计模式 可复用面向对象软件的基础》一书，打算以博客的形式进行笔记与思考书中提到了可复用面向对象设计的原则，其中的第一个原则是：  针对接口编程，而不是针对实现编程其实在使用面向对象语言进行编程的时候，经常不经意间就会涉及书中提到的知识，但是一旦用专门的词汇进行描述时，第一反应就是“诶...">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--<link rel="stylesheet" href=" /css/syntax.css ">-->
+    <link rel="canonical" href="http://mahong978.github.io/2016/04/26/coding-interface-or-implement/">
+    <link rel="alternate" type="application/rss+xml" title="Mahong" href="http://mahong978.github.io /feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c4e3e6dfb970411c574e62c2c06e0c41";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72449510-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">Mahong</a>
+        <small>Android Developer</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>主页
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>存档
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>分类
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>标签
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/collection/">
+                        
+                            <i class="fa fa-bookmark"></i>Collections
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/demo/">
+                        
+                            <i class="fa fa-play"></i>Demo
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>面向接口编程与面向实现编程</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2016-04-26
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#编程" title="Category: 编程" rel="category">编程</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#%E7%BC%96%E7%A8%8B" title="Tag: 编程" rel="tag">编程</a-->
+        <a href="/tag/#编程" title="Tag: 编程" rel="tag">编程</a>&nbsp;
+    
+        <!--a href="/tag/#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F" title="Tag: 设计模式" rel="tag">设计模式</a-->
+        <a href="/tag/#设计模式" title="Tag: 设计模式" rel="tag">设计模式</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">面向实现编程</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">面向接口编程</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">总结</a></li>
+</ul>
+
+<p>最近拜读了四人组的经典名作<em>《设计模式 可复用面向对象软件的基础》</em>一书，打算以博客的形式进行笔记与思考</p>
+
+<p>书中提到了可复用面向对象设计的原则，其中的第一个原则是：</p>
+
+<blockquote>
+  <p>针对接口编程，而不是针对实现编程</p>
+</blockquote>
+
+<p>其实在使用面向对象语言进行编程的时候，经常不经意间就会涉及书中提到的知识，但是一旦用专门的词汇进行描述时，第一反应就是“诶？这是什么意思？看不懂啊”，只有经过反复的阅读与思考，才意识到这是日常编程经常遇到的问题，并且得到更深的理解</p>
+
+<hr />
+<h2 id="section">面向实现编程</h2>
+
+<p>举个例子，假设有两种品牌的轮胎，普利司通（Bridgestone）和米其林（Michelin），而轮胎的共同特性都是会转（roll）。那么我们可以得到两个类：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bridgestone</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Bridgestone is rolling."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Michelin</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Michelin is rolling"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>对于一辆装了普利司通轮胎的汽车（Car），汽车的转动（roll）就是轮胎的转动：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">(</span><span class="n">Bridgestone</span> <span class="n">tire</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">tire</span><span class="o">.</span><span class="na">roll</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>那如果我装了米其林的轮胎呢？</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Car</span> <span class="n">car</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">();</span>
+<span class="n">Michelin</span> <span class="n">tire</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mechilin</span><span class="o">();</span>
+<span class="n">car</span><span class="o">.</span><span class="na">roll</span><span class="o">(</span><span class="n">tire</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>显而易见，程序将会出错。这就是面向实现编程，变量是指向特定类的实例的。
+这种强烈的依赖关系将会大大地抑制编程的灵活性和可复用性。</p>
+
+<hr />
+
+<h2 id="section-1">面向接口编程</h2>
+
+<p>如果将这两种轮胎的共同特性提取出来，在转动轮胎的时候，只关注“是轮胎”本身，而不去了解“是什么品牌的轮胎”，问题就迎刃而解了</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">Tire</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bridgestone</span> <span class="kd">implements</span> <span class="n">Tire</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Bridgestone is rolling."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Michelin</span> <span class="kd">implements</span> <span class="n">Tire</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Michelin is rolling"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>接口Tire定义了“转动”这个接口，但把实现延迟到了子类中</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roll</span><span class="o">(</span><span class="n">Tire</span> <span class="n">tire</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">tire</span><span class="o">.</span><span class="na">roll</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">Car</span> <span class="n">car</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">();</span>
+<span class="n">BridgeStone</span> <span class="n">tire1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bridgestone</span><span class="o">();</span>
+<span class="n">Michelin</span> <span class="n">tire2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mechilin</span><span class="o">();</span>
+<span class="n">car</span><span class="o">.</span><span class="na">roll</span><span class="o">(</span><span class="n">tire1</span><span class="o">);</span>
+<span class="n">car</span><span class="o">.</span><span class="na">roll</span><span class="o">(</span><span class="n">tire2</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>汽车在转动时，并不关注“是什么品牌的轮胎“，只关注”是轮胎“，想怎么转就怎么转</p>
+
+<p>从这个例子我们可以看出，面向接口编程的特性：</p>
+
+<blockquote>
+  <p>客户无须知道他们使用对象的特定类型，只须对象有客户所期望的接口</p>
+</blockquote>
+
+<p>客户使用汽车转动轮胎时，无须知道轮胎的特定类型（品牌，对应的子类），只要轮胎有客户所期望的接口（roll）就行了</p>
+
+<blockquote>
+  <p>客户无须知道他们使用的对象是用什么类来实现的，他们只须知道定义接口的抽象类</p>
+</blockquote>
+
+<p>客户使用Car的roll方法调用轮胎对应的方法时，不需要知道这个轮胎实例是用什么子类实现的，他只需要知道定义转动方法的抽象类（JAVA中的interface）的内容就行了</p>
+
+<hr />
+
+<h2 id="section-2">总结</h2>
+<p>面向接口的编程方式是面向对象设计的一个原则，使用这种编程思想，我们可以容易地写出具有可复用性的代码，这对于代码的理解和维护具有很大的帮助</p>
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>下一篇</strong> <a href="/2016/08/14/to-do/">TODO-MVP源码解析</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="http://mahong978.github.io/2016/04/26/coding-interface-or-implement/" data-title="面向接口编程与面向实现编程" data-url="http://mahong978.github.io/2016/04/26/coding-interface-or-implement/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {
+        short_name: "mahong978"
+    };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             个人博客 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/mahong978" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:1350374964@qq.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>  
+            <a href="http://weibo.com/mahq" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a>  
+            <a href="https://www.zhihu.com/people/ma-hong-66" title="Zhihu"><i class="iconfont">&#xe829;</i></a>   
+            <a href="https://www.facebook.com/mahong978" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>    
+        </p>
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" class="scroll">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/scroll.min.js " charset="utf-8"></script>
+  </body>
+
+</html>
