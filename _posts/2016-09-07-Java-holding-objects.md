@@ -7,6 +7,8 @@ tags: java
 excerpt: 
 ---
 
+* content
+{:toc}
 
 《Java编程思想》第十一章
 

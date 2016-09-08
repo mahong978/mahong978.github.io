@@ -6,6 +6,10 @@ categories: Android
 tags: Android Notification
 ---
 
+* content
+{:toc}
+
+
 Android N带来了一系列新功能，比如分屏与画中画，更好的后台管理等，其中就包括了direct reply notification，顾名思义，就是可以直接回复的通知。
 
 

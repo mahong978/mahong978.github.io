@@ -7,6 +7,8 @@ tags: java
 excerpt: 《Java编程思想》第九章
 ---
 
+* content
+{:toc}
 
 
 
