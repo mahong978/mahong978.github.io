@@ -5,19 +5,35 @@
     <description></description>
     <link>http://mahong978.github.io/</link>
     <atom:link href="http://mahong978.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Sep 2016 22:40:56 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Sep 2016 22:40:56 +0800</lastBuildDate>
+    <pubDate>Thu, 08 Sep 2016 22:53:56 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Sep 2016 22:53:56 +0800</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       <item>
         <title>Android N新特性：direct reply notification</title>
-        <description>&lt;p&gt;Android N带来了一系列新功能，比如分屏与画中画，更好的后台管理等，其中就包括了direct reply notification，顾名思义，就是可以直接回复的通知。&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;主要流程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#notification&quot; id=&quot;markdown-toc-notification&quot;&gt;构建Notification&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#remoteinput&quot; id=&quot;markdown-toc-remoteinput&quot;&gt;RemoteInput&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#notificationcompataction&quot; id=&quot;markdown-toc-notificationcompataction&quot;&gt;NotificationCompat.Action&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#pendingintent&quot; id=&quot;markdown-toc-pendingintent&quot;&gt;PendingIntent&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#notificationcompatbuilder&quot; id=&quot;markdown-toc-notificationcompatbuilder&quot;&gt;NotificationCompat.Builder&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;处理回复&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;更新通知&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Android N带来了一系列新功能，比如分屏与画中画，更好的后台管理等，其中就包括了direct reply notification，顾名思义，就是可以直接回复的通知。&lt;/p&gt;
 
 &lt;p&gt;试想一下，在以往的Android系统中，你正在使用的一款社交应用不在前台时，当有新消息时往往是以通知的方法进行提醒的，这时你从状态栏下滑，显示出通知列表，然后点击那个通知进入应用的聊天界面，最后才进行回复。这中间包括了多个手势和界面跳转，当应用优化或者手机性能较差时，这将会花上相当的时间，所带来的用户体验将会是比较差的。&lt;/p&gt;
 
 &lt;p&gt;Android N带来的直接回复通知的功能，允许用户直接在通知控件上进行回复，这就免去了上面所述的步骤，优化了用户体验。下面就让我们对direct reply notification进行研究&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section&quot;&gt;主要流程&lt;/h2&gt;
 
 &lt;p&gt;在开始之前，先来理清一下中间的步骤：&lt;/p&gt;
@@ -32,6 +48,7 @@
 &lt;p&gt;主要流程大概就是这样，下面就开始一步步地来进行探索&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;notification&quot;&gt;构建Notification&lt;/h2&gt;
 
 &lt;p&gt;监听消息的Service在接收一条新消息后，将发出一条通知，那么直接回复的通知是如何构建的呢？&lt;/p&gt;
@@ -51,6 +68,7 @@
 &lt;p&gt;RemoteInput使用了建造者模式，RemoteInput.Builder的构造函数中需要提供一个String类型的resultKey，这个key将会在后面提取用户输入内内容的时候用到。setLabel()方法是设置用户点开输入框后的hint文字&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h3 id=&quot;notificationcompataction&quot;&gt;NotificationCompat.Action&lt;/h3&gt;
 
 &lt;p&gt;由于RemoteInput是v4 support包的，因此这里的通知是使用v4 support的NotificationCompat进行构建的&lt;/p&gt;
@@ -92,6 +110,7 @@ Builder调用addRemoteInput()方法设置RemoteInput&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;hr /&gt;
+
 &lt;h3 id=&quot;notificationcompatbuilder&quot;&gt;NotificationCompat.Builder&lt;/h3&gt;
 
 &lt;p&gt;Notification.Builder的使用以及通知的发送就不用介绍了：&lt;/p&gt;
@@ -127,6 +146,7 @@ Builder调用addRemoteInput()方法设置RemoteInput&lt;/p&gt;
 &lt;p&gt;其中构造器的参数是用户的显示名，setConversationTitle()是设置此次对话的标题，addMessage()是添加一条消息，参数分别是消息内容，时间戳以及对方的用户名（如果是用户自己发出的则设为null）&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section-1&quot;&gt;处理回复&lt;/h2&gt;
 
 &lt;p&gt;当用户进行了回复后，回复内容会被包装在一个Intent中，发送到action的PendingIntent指向的Service，BroadcastReceiver或Activity&lt;/p&gt;
@@ -153,6 +173,7 @@ Builder调用addRemoteInput()方法设置RemoteInput&lt;/p&gt;
 &lt;p&gt;需要注意的是，从Bundle中取出文本时使用的键，是创建RemoteInput对象时指定的键&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section-2&quot;&gt;更新通知&lt;/h2&gt;
 
 &lt;p&gt;用户点击发送按钮回复后，发送按钮会变成一个progress小圆圈，如果你在上面那步就结束的话，这个progress小圆圈就会一直转个不停，这样的用户体验显然是不好的，因此需要在消息发送成功后更新通知&lt;/p&gt;
@@ -194,7 +215,35 @@ Builder调用addRemoteInput()方法设置RemoteInput&lt;/p&gt;
     
       <item>
         <title>Java笔记整理：持有对象</title>
-        <description>&lt;p&gt;《Java编程思想》第十一章&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;泛型&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;基本概念&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;添加一组元素&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;容器的打印&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#list&quot; id=&quot;markdown-toc-list&quot;&gt;List&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;迭代器&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#listiterator&quot; id=&quot;markdown-toc-listiterator&quot;&gt;ListIterator&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#linkedlist&quot; id=&quot;markdown-toc-linkedlist&quot;&gt;LinkedList&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#stack&quot; id=&quot;markdown-toc-stack&quot;&gt;Stack&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#set&quot; id=&quot;markdown-toc-set&quot;&gt;Set&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#map&quot; id=&quot;markdown-toc-map&quot;&gt;Map&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#queue&quot; id=&quot;markdown-toc-queue&quot;&gt;Queue&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#priorityqueue&quot; id=&quot;markdown-toc-priorityqueue&quot;&gt;PriorityQueue&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#collectioniterator&quot; id=&quot;markdown-toc-collectioniterator&quot;&gt;Collection和Iterator&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#foreach&quot; id=&quot;markdown-toc-foreach&quot;&gt;foreach和迭代器&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;适配器方法惯用法&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;总结&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;《Java编程思想》第十一章&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;如果一个程序只包含固定数量的且生命周期都是已知的对象，那么这是一个非常简单的程序&lt;/p&gt;
@@ -208,6 +257,7 @@ JAVA实用类库提供了一套容器类，其中基本的类型是List，Set，
 &lt;p&gt;JAVA中的容器都是类，也就是说JAVA没有直接的关键字支持&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section&quot;&gt;泛型&lt;/h2&gt;
 
 &lt;p&gt;泛型指定了容器中元素的类型，访问元素时返回的是泛型类型的引用，可能需要自己转型&lt;/p&gt;
@@ -220,6 +270,7 @@ JAVA实用类库提供了一套容器类，其中基本的类型是List，Set，
 打印对象时可能产生的无符号十六进制数，是由hashCode方法产生的&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section-1&quot;&gt;基本概念&lt;/h2&gt;
 
 &lt;p&gt;容器类可以分为两个概念&lt;/p&gt;
@@ -425,6 +476,7 @@ HashSet使用了散列，TreeSet将元素存储在红黑树数据结构中&lt;/p
 Arrays.asList方法产生的队列，如果对其进行修改，也会影响到原数组&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section-6&quot;&gt;总结&lt;/h2&gt;
 
 &lt;ol&gt;
@@ -449,13 +501,34 @@ Arrays.asList方法产生的队列，如果对其进行修改，也会影响到�
     
       <item>
         <title>Java笔记整理：内部类</title>
-        <description>&lt;p&gt;内部类：将一个类的定义放在另一个类的定义内部&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;创建内部类&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;链接到外部类&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#this-new&quot; id=&quot;markdown-toc-this-new&quot;&gt;.this和 .new&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;内部类和向上转型&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;方法和作用域内的内部类&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;匿名内部类&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;嵌套类&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;接口内部&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;为什么需要内部类&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;闭包和回调&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;内部类的继承&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-10&quot; id=&quot;markdown-toc-section-10&quot;&gt;内部类的覆盖&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-11&quot; id=&quot;markdown-toc-section-11&quot;&gt;内部类标识符&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;内部类：将一个类的定义放在另一个类的定义内部&lt;/p&gt;
 
 &lt;p&gt;把一些逻辑相关的类组织在一起，并控制内部类的可视性&lt;/p&gt;
 
 &lt;p&gt;内部类与组合是完全不同的概念&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section&quot;&gt;创建内部类&lt;/h2&gt;
 
 &lt;p&gt;从外部类的非静态方法之外的任意位置创建某个内部类的对象，必须具体指明对象的类型：OuterClassName.InnerClassName&lt;/p&gt;
@@ -547,6 +620,7 @@ Arrays.asList方法产生的队列，如果对其进行修改，也会影响到�
 内部类可以访问所有它嵌入的外围类的所有成员&lt;/p&gt;
 
 &lt;hr /&gt;
+
 &lt;h2 id=&quot;section-7&quot;&gt;为什么需要内部类&lt;/h2&gt;
 
 &lt;p&gt;由于内部类可以访问外围类的成员，所以内部类提供某种访问外围类的窗口&lt;/p&gt;
@@ -604,7 +678,22 @@ Arrays.asList方法产生的队列，如果对其进行修改，也会影响到�
     
       <item>
         <title>Java笔记整理：接口</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;抽象类和抽象方法&lt;/h2&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;抽象类和抽象方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;接口&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;完全解耦&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;多重继承&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;通过继承扩展接口&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;名字冲突&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;适配接口&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;接口中的域&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;嵌套接口&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-9&quot; id=&quot;markdown-toc-section-9&quot;&gt;接口和工厂&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;抽象类和抽象方法&lt;/h2&gt;
 
 &lt;p&gt;抽象类是介于普通类和接口之间的形式&lt;/p&gt;
 

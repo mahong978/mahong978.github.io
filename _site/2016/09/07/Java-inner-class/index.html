@@ -196,13 +196,34 @@
         </div>
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
-        <p>内部类：将一个类的定义放在另一个类的定义内部</p>
+        <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">创建内部类</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">链接到外部类</a></li>
+  <li><a href="#this-new" id="markdown-toc-this-new">.this和 .new</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">内部类和向上转型</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">方法和作用域内的内部类</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">匿名内部类</a></li>
+  <li><a href="#section-5" id="markdown-toc-section-5">嵌套类</a>    <ul>
+      <li><a href="#section-6" id="markdown-toc-section-6">接口内部</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-7" id="markdown-toc-section-7">为什么需要内部类</a>    <ul>
+      <li><a href="#section-8" id="markdown-toc-section-8">闭包和回调</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-9" id="markdown-toc-section-9">内部类的继承</a></li>
+  <li><a href="#section-10" id="markdown-toc-section-10">内部类的覆盖</a></li>
+  <li><a href="#section-11" id="markdown-toc-section-11">内部类标识符</a></li>
+</ul>
+
+<p>内部类：将一个类的定义放在另一个类的定义内部</p>
 
 <p>把一些逻辑相关的类组织在一起，并控制内部类的可视性</p>
 
 <p>内部类与组合是完全不同的概念</p>
 
 <hr />
+
 <h2 id="section">创建内部类</h2>
 
 <p>从外部类的非静态方法之外的任意位置创建某个内部类的对象，必须具体指明对象的类型：OuterClassName.InnerClassName</p>
@@ -294,6 +315,7 @@
 内部类可以访问所有它嵌入的外围类的所有成员</p>
 
 <hr />
+
 <h2 id="section-7">为什么需要内部类</h2>
 
 <p>由于内部类可以访问外围类的成员，所以内部类提供某种访问外围类的窗口</p>
