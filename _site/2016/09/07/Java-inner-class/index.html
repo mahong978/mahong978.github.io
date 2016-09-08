@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Java笔记整理：复用类</title>
-    <meta name="description" content="《Java编程思想》第七章">
+    <title>Java笔记整理：内部类</title>
+    <meta name="description" content="《Java编程思想》第十章">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
     <link rel="stylesheet" href=" /css/main.css ">
     <!--<link rel="stylesheet" href=" /css/syntax.css ">-->
-    <link rel="canonical" href="http://mahong978.github.io/2016/09/05/Java-reuse-class/">
+    <link rel="canonical" href="http://mahong978.github.io/2016/09/07/Java-inner-class/">
     <link rel="alternate" type="application/rss+xml" title="Mahong" href="http://mahong978.github.io /feed.xml ">
 
 
@@ -143,11 +143,11 @@
 
         <div class="page clearfix" post>
     <div class="left">
-        <h1>Java笔记整理：复用类</h1>
+        <h1>Java笔记整理：内部类</h1>
         <div class="label">
 
             <div class="label-card">
-                <i class="fa fa-calendar"></i>2016-09-05
+                <i class="fa fa-calendar"></i>2016-09-07
             </div>
 
             <div class="label-card">
@@ -196,158 +196,147 @@
         </div>
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
-        <ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">组合</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">继承</a>    <ul>
-      <li><a href="#section-2" id="markdown-toc-section-2">初始化基类</a></li>
-    </ul>
-  </li>
-  <li><a href="#section-3" id="markdown-toc-section-3">代理</a></li>
-  <li><a href="#section-4" id="markdown-toc-section-4">结合使用组合和继承</a>    <ul>
-      <li><a href="#section-5" id="markdown-toc-section-5">确保正确清理</a></li>
-      <li><a href="#section-6" id="markdown-toc-section-6">名称屏蔽</a></li>
-    </ul>
-  </li>
-  <li><a href="#section-7" id="markdown-toc-section-7">选择组合或继承</a></li>
-  <li><a href="#protected" id="markdown-toc-protected">protected</a></li>
-  <li><a href="#section-8" id="markdown-toc-section-8">向上转型</a></li>
-  <li><a href="#final" id="markdown-toc-final">final关键字</a>    <ul>
-      <li><a href="#final-1" id="markdown-toc-final-1">final数据</a></li>
-      <li><a href="#final-2" id="markdown-toc-final-2">空白final</a></li>
-      <li><a href="#final-3" id="markdown-toc-final-3">final参数</a></li>
-      <li><a href="#final-4" id="markdown-toc-final-4">final方法</a></li>
-      <li><a href="#final-5" id="markdown-toc-final-5">final类</a></li>
-    </ul>
-  </li>
-  <li><a href="#section-9" id="markdown-toc-section-9">初始化以及类的加载</a></li>
-</ul>
+        <p>内部类：将一个类的定义放在另一个类的定义内部</p>
 
-<p>复用代码最简单的方式就是复制代码
-可以通过创建新类进行复用：</p>
+<p>把一些逻辑相关的类组织在一起，并控制内部类的可视性</p>
 
-<ol>
-  <li>在新类中产生现有类的对象（组合）</li>
-  <li>按照现有类来创建新类（继承）</li>
-</ol>
+<p>内部类与组合是完全不同的概念</p>
 
-<h2 id="section">组合</h2>
+<hr />
+<h2 id="section">创建内部类</h2>
 
-<p>每一个非基本类型的类都有一个toString方法
-类中基本类型的域会自动初始化为0，对象引用初始化为null
-null引用可以被打印</p>
+<p>从外部类的非静态方法之外的任意位置创建某个内部类的对象，必须具体指明对象的类型：OuterClassName.InnerClassName</p>
 
-<p>初始化引用的方式：</p>
+<hr />
 
-<ol>
-  <li>定义的地方。这将会在构造器之前执行</li>
-  <li>构造器中</li>
-  <li>正要使用之前。也叫惰性初始化</li>
-  <li>使用实例初始化</li>
-</ol>
+<h2 id="section-1">链接到外部类</h2>
 
-<h2 id="section-1">继承</h2>
-<p>创建一个类时，总是在继承。除非显式指出继承某类，否则将隐式继承Object类
-继承将自动获得基类的所有域和方法
-使用super关键字调用基类版本的域或方法</p>
+<p>内部类对象能访问其外围对象的所有成员，不需要任何条件</p>
 
-<h3 id="section-2">初始化基类</h3>
-<p>创建一个导出类的对象时，该对象会包含一个基类的子对象
-导出类的构造器中自动先调用基类的构造器
-构造过程是从基类向外扩散的，即先调用基类的，再调用导出类的。这使得基类内容在导出类可以访问它时，就已经完成了初始化</p>
+<p>当某个外围类的对象创建了一个内部类对象时，此内部类对象必定会秘密地捕获一个指向那个外围类对象的引用，用这个引用来访问外围类的成员</p>
 
-<p>Java会调用的是基类的默认构造器，如果基类没有，需要用super显式地调用基类的带参构造器
-调用基类构造器必须是导出类构造器中的第一件事</p>
+<hr />
 
-<h2 id="section-3">代理</h2>
-<blockquote>
-  <p>代理是一个编程模式，是继承和组合的中庸之道</p>
-</blockquote>
+<h2 id="this-new">.this和 .new</h2>
 
-<p>将成员对象置于类中（组合），在类中暴露成员对象的所有方法（类似继承），相当于新类代理了各个成员对象的行为</p>
+<p>如果内部类需要得到对应外部类对象的引用，使用外部类名 + .this</p>
 
-<h2 id="section-4">结合使用组合和继承</h2>
+<p>手动创建内部类对象时，由于需要外部类对象为前提，所以在new表达式中要提供外部类对象的引用</p>
 
-<h3 id="section-5">确保正确清理</h3>
-<p>由于不知道垃圾回收器何时回收，因此需要显式地遍写方法来进行收尾
-可以使用try-finally代码块。无论try是如何退出的，finally块总会被执行</p>
+<p>必须使用外部类对象来创建内部类对象</p>
 
-<p>清理顺序应和构造顺序相反</p>
+<p>在拥有外部类对象之前是不可能创建内部类对象的</p>
 
-<p>不要使用finalize</p>
+<p>如果内部类是嵌套类（静态内部类），则不需要外部类对象的前提</p>
 
-<h3 id="section-6">名称屏蔽</h3>
-<p>在导出类中对基类的方法进行重载，不会屏蔽基类的所有重载版本
-<code class="highlighter-rouge">@Override</code>注解可以防止在不想重载时意外进行了重载</p>
+<hr />
 
-<h2 id="section-7">选择组合或继承</h2>
-<p>组合和继承都是在新类中放置子对象，组合是显式的，继承是隐式的
-组合通常是希望在新类中使用现有类的功能，而并非得到其接口。用户看到的只有新类的接口，而看不到成员的接口
-继承是希望使用现有类，开发它的特殊版本</p>
+<h2 id="section-2">内部类和向上转型</h2>
 
-<ul>
-  <li>组合 = has-a</li>
-  <li>继承 = is-a</li>
-</ul>
+<p>当内部类是实现了某个接口，然后将一个对象向上转型为接口类型，就可以很好地隐藏内部类的细节</p>
 
-<h2 id="protected">protected</h2>
-<p>继承使protected关键字具有意义
-应尽量使用private，然后用protected限制继承者的访问权限</p>
+<p>private内部类甚至不能访问其名字，通过这种方式可以完全阻止任何依赖于类型的编码，并且完全隐藏了实现的细节</p>
 
-<h2 id="section-8">向上转型</h2>
-<p>称为向上转型是因为，类层次关系中基类是上层的
-向上转型总是安全的
-向上转型会丢失信息
-向上转型的过程中，类接口只会丢失方法，而不会获取方法</p>
+<hr />
 
-<p>继承应当慎用，使用继承前应考虑是否需要进行向上转型</p>
+<h2 id="section-3">方法和作用域内的内部类</h2>
 
-<h2 id="final">final关键字</h2>
+<p>可以在一个方法里面或者在任意的作用域内定义内部类</p>
 
-<h3 id="final-1">final数据</h3>
-<p>final的作用是向编译器通知一块数据是恒定不变的</p>
+<p>理由：</p>
 
 <ol>
-  <li>永不改变的编译时常量</li>
-  <li>运行时初始化的值，希望不被改变</li>
+  <li>快速实现某个接口并返回其引用</li>
+  <li>需要一个辅助的类，但又不希望它是公共可用的</li>
 </ol>
 
-<p>JAVA会对final使用优化进行优化，对于域会在编译时计算表达式，对于方法会使用内嵌机制
-编译时常量必须是基本类型，定义该常量时必须对其进行赋值</p>
+<p>在方法作用域内定义的类称作局部内部类</p>
 
-<p>final修饰对象引用时，表示该引用恒定不变。一旦该引用指向一个对象，就不能指向别的对象</p>
+<p>局部内部类的定义不会造成命名冲突</p>
 
-<p>JAVA编写规范中，既是static又是final的域命名用大写，用下划线分隔单词</p>
+<p>局部内部类在编译时已经被编译了，因此其定义与作用域无关，而是在该作用域外不可用</p>
 
-<h3 id="final-2">空白final</h3>
-<p>声明为final但没有给定初值的域
-无论如何，必须在域的定义处或每个构造器中对final进行赋值，否则将会在使用该域时产生异常</p>
+<hr />
 
-<h3 id="final-3">final参数</h3>
-<p>表示无法在方法中更改参数的值或指向的对象</p>
+<h2 id="section-4">匿名内部类</h2>
 
-<h3 id="final-4">final方法</h3>
-<p>使用final方法的原因：</p>
+<p>使用匿名内部类可以快速返回一个基类或接口的实现</p>
+
+<p>return new 基类/接口名(参数列表) {实现}</p>
+
+<p><br />
+如果定义一个匿名内部类，需要使用一个在定义外部的对象，那么这个对象的引用必须是final的</p>
+
+<p>匿名内部类没有名字，因此没有构造器，如果需要进行一些初始化，可以使用实例初始化</p>
+
+<p>匿名内部类可以继承类，也可以实现接口，但是只能选一个，而且只能实现一个接口</p>
+
+<hr />
+
+<h2 id="section-5">嵌套类</h2>
+
+<p>静态的内部类即嵌套类</p>
+
+<p>创建嵌套类的对象，不需要外围类的对象</p>
+
+<p>不能用嵌套类的对象访问非静态的外围类对象</p>
+
+<p>普通内部类不能有静态数据和静态字段，而嵌套类可以有</p>
+
+<h3 id="section-6">接口内部</h3>
+<p>接口内部可以放置嵌套类（由于放置在接口中的类都自动是public和static的）</p>
+
+<p>可以在内部类中实现其外围接口</p>
+
+<p>在一个接口中预置多种实现，可以使用嵌套类进行实现</p>
+
+<p><br />
+内部类可以访问所有它嵌入的外围类的所有成员</p>
+
+<hr />
+<h2 id="section-7">为什么需要内部类</h2>
+
+<p>由于内部类可以访问外围类的成员，所以内部类提供某种访问外围类的窗口</p>
+
+<p>每个内部类都可以独立得继承一个接口的实现，对外围类来说相当于某种意义上的多重继承</p>
+
+<p>内部类的其他特性：</p>
 
 <ol>
-  <li>锁定方法，防止导出类修改其含义</li>
-  <li>效率。使用内嵌调用提高效率</li>
+  <li>内部类可以有多个实例，内部类的状态都是相互独立的</li>
+  <li>在一个外围类内可以让多个内部类以不同形式实现一个接口</li>
+  <li>内部类是一个独立的实体</li>
 </ol>
 
-<p>类中的private方法都隐式地指定为final
-覆盖一个private方法不会导致错误，但不会覆盖，而是产生了一个新方法</p>
+<h3 id="section-8">闭包和回调</h3>
 
-<h3 id="final-5">final类</h3>
-<p>表示无法被继承
-类中的所有方法都隐式指定为final</p>
+<p>闭包是一个可调用的对象，它记录了一些信息，这些信息来自创建它的作用域</p>
 
-<h2 id="section-9">初始化以及类的加载</h2>
-<p>编译代码文件只有在需要使用时才会被加载
-加载发生于创建类的第一个对象或者访问静态域或方法时
-所有的静态域和代码段都会在加载时，按照书写顺序依次初始化</p>
+<p>内部类是面向对象的闭包</p>
 
-<p>在使用导出类时，会加载基类
-对于静态成员，会先初始化基类的</p>
+<p>JAVA通过闭包提供了回调机制，可以在运行时动态地决定调用什么方法</p>
 
+<hr />
+
+<h2 id="section-9">内部类的继承</h2>
+<p>由于内部类的实例化需要外围类的对象，所以内部类的导出类，其构造器必须要有那个外围类对象的引用，然后再构造器中调用super()，才能编译通过</p>
+
+<hr />
+
+<h2 id="section-10">内部类的覆盖</h2>
+<p>基类和导出类中的两个同名内部类是相互独立的，各自在自己的命名空间中</p>
+
+<p>局部内部类不能有访问说明符，因为它不是外围类的成员</p>
+
+<hr />
+
+<h2 id="section-11">内部类标识符</h2>
+<p>内部类的类文件名为：外围类名字 + $ + 内部类名字</p>
+
+<p>如果内部类是匿名的，会产生一个数字作为标识符</p>
+
+<p><br />
+如果一个内部类是嵌套在别的内部类中，直接将其名字放在外围类标识符和$后面</p>
 
         </article>
         <hr>
@@ -390,22 +379,6 @@ null引用可以被打印</p>
                     
                         
                         <li class="relatedPost">
-                            <a href="http://mahong978.github.io/2016/09/07/Java-inner-class/">Java笔记整理：内部类
-                            
-                            </a>
-                        </li>
-                        
-                        
-                    
-                
-            
-        
-            
-            
-                
-                    
-                        
-                        <li class="relatedPost">
                             <a href="http://mahong978.github.io/2016/09/07/Java-interface/">Java笔记整理：接口
                             
                             </a>
@@ -423,6 +396,22 @@ null引用可以被打印</p>
                         
                         <li class="relatedPost">
                             <a href="http://mahong978.github.io/2016/09/05/Java-polymorphism/">Java笔记整理：多态
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="http://mahong978.github.io/2016/09/05/Java-reuse-class/">Java笔记整理：复用类
                             
                             </a>
                         </li>
@@ -492,13 +481,13 @@ null引用可以被打印</p>
         <div class="post-recent">
     <div class="pre">
         
-        <p><strong>上一篇</strong> <a href="/2016/09/04/Java-access-control/">Java笔记整理：访问权限控制</a></p>
+        <p><strong>上一篇</strong> <a href="/2016/09/07/Java-interface/">Java笔记整理：接口</a></p>
         
     </div>
     <div class="nex">
 
         
-        <p><strong>下一篇</strong> <a href="/2016/09/05/Java-polymorphism/">Java笔记整理：多态</a></p>
+        <p><strong>下一篇</strong> <a href="/2016/09/07/Java-holding-objects/">Java笔记整理：持有对象</a></p>
         
     </div>
 </div>
@@ -507,7 +496,7 @@ null引用可以被打印</p>
         <h2 id="comments">Comments</h2>
         
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="http://mahong978.github.io/2016/09/05/Java-reuse-class/" data-title="Java笔记整理：复用类" data-url="http://mahong978.github.io/2016/09/05/Java-reuse-class/"></div>
+<div class="ds-thread" data-thread-key="http://mahong978.github.io/2016/09/07/Java-inner-class/" data-title="Java笔记整理：内部类" data-url="http://mahong978.github.io/2016/09/07/Java-inner-class/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

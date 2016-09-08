@@ -14,7 +14,7 @@
     <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
     <link rel="stylesheet" href=" /css/main.css ">
     <!--<link rel="stylesheet" href=" /css/syntax.css ">-->
-    <link rel="canonical" href="http://mahong978.github.io/">
+    <link rel="canonical" href="http://mahong978.github.io/page4/">
     <link rel="alternate" type="application/rss+xml" title="Mahong" href="http://mahong978.github.io /feed.xml ">
 
 
@@ -56,8 +56,8 @@
             <ul>
                 <li>
                     
-                    <a class="active" href="/">
-                        
+                    <a href="/">
+                    
                         <i class="fa fa-home"></i>主页
                     </a>
                 </li>
@@ -150,11 +150,11 @@
             
               <li>
                 <h2>
-                  <a class="post-link" href="/2016/09/08/Android-DRN/">Android N新特性：direct reply notification</a>
+                  <a class="post-link" href="/2016/08/16/android-data-binding/">Data binding学习</a>
                 </h2>
                 <div class="label">
                     <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-08
+                        <i class="fa fa-calendar"></i>2016-08-16
                     </div>
                     <div class="label-card">
                         
@@ -191,7 +191,7 @@
     
         <a href="/tag/#Android" title="Tag: Android" rel="tag">Android</a>&nbsp;
     
-        <a href="/tag/#Notification" title="Tag: Notification" rel="tag">Notification</a>
+        <a href="/tag/#data-binding" title="Tag: data-binding" rel="tag">data-binding</a>
     
   
 
@@ -200,23 +200,31 @@
                     </div>
                 </div>
                 <div class="excerpt">
-                    <p>Android N带来了一系列新功能，比如分屏与画中画，更好的后台管理等，其中就包括了direct reply notification，顾名思义，就是可以直接回复的通知。</p>
+                    
+<p>Google在去年下半年的时候推出了Data binding的support包，当时用起来似乎挺麻烦，不过随着Android Studio 2.0的发展，Google不仅让Data binding支持包变得更易用，也提升了AS对Data binding在IDE上的支持。</p>
+
+<p>随着界面的内容越来越丰富以及项目工程的扩大，在代码里控制UI控件的显示和更新会变得越来越麻烦，你会发现你需要写大量的findViewById函数，获取大量的控件实例，看着都嫌累。</p>
+
+<p>Google推出Data binding就是为了缓解这种问题，它可以让一些基本的UI代码转移到XML资源文件中。Data binding其实就是Android MVVM框架的核心，至于MVVM和MVP有什么不同，看模式图很难看出来，其实MVC，MVP，MVVM这些模式随着Web发展出来的，感觉这些也只是一些理论，随着开发者的使用很容易有不同的实现版本出现，可能MVVM和MVP也只是大同小异罢了。
+根据MVVM的定义，分为Model，View和ViewModel（也就是Presenter啦），不过在学习了Data binding后，个人感觉ViewModel和Presenter的差别在于，Presenter更多的是扮演着请求和响应的加工和转交，而ViewModel则更像M和V二者的过渡态，其中一方的改变都可以在VM上看出来，并且在另一方上自动产生相应的变化。</p>
+
+<p>好了不废话了，接下来就开始对Data binding的学习</p>
 
 
                 </div>
                 <div class="read-all">
-                    <a  href="/2016/09/08/Android-DRN/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
+                    <a  href="/2016/08/16/android-data-binding/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
                 </div>
                 <hr>
               </li>
             
               <li>
                 <h2>
-                  <a class="post-link" href="/2016/09/07/Java-holding-objects/">Java笔记整理：持有对象</a>
+                  <a class="post-link" href="/2016/08/14/to-do/">TODO-MVP源码解析</a>
                 </h2>
                 <div class="label">
                     <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-07
+                        <i class="fa fa-calendar"></i>2016-08-14
                     </div>
                     <div class="label-card">
                         
@@ -234,7 +242,7 @@
   <i class="fa fa-th-list"></i>
   
     
-        <a href="/category/#java" title="Category: java" rel="category">java</a>
+        <a href="/category/#Android" title="Category: Android" rel="category">Android</a>
     
   
 
@@ -251,7 +259,7 @@
   <i class="fa fa-tags"></i>
   
     
-        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
+        <a href="/tag/#Android" title="Tag: Android" rel="tag">Android</a>
     
   
 
@@ -260,248 +268,84 @@
                     </div>
                 </div>
                 <div class="excerpt">
-                    <p>《Java编程思想》第十一章</p>
+                    
+<p><a href="https://github.com/googlesamples">Google Samples</a>上有很多优先的app代码范例，最近在总结设计模式时，看到书中提到了Smalltalk的MVC模式，这个缩写好像经常能在网上见到，还往往还MVP一起出现。我以前也稍微了解过一下，但是网上对MVC运行原理的解释有很多版本，被弄蒙后也没看下去了。恰好又偶然在Google Samples上看到了这个用MVP模式写的todo应用，于是想尝试通过代码的角度来了解MVC和MVP的真面目</p>
+
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/08/14/to-do/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/04/26/coding-interface-or-implement/">面向接口编程与面向实现编程</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-04-26
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#编程" title="Category: 编程" rel="category">编程</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#编程" title="Tag: 编程" rel="tag">编程</a>&nbsp;
+    
+        <a href="/tag/#设计模式" title="Tag: 设计模式" rel="tag">设计模式</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    
+<p>最近拜读了四人组的经典名作<em>《设计模式 可复用面向对象软件的基础》</em>一书，打算以博客的形式进行笔记与思考</p>
+
+<p>书中提到了可复用面向对象设计的原则，其中的第一个原则是：</p>
 
 <blockquote>
-  <p>如果一个程序只包含固定数量的且生命周期都是已知的对象，那么这是一个非常简单的程序</p>
+  <p>针对接口编程，而不是针对实现编程</p>
 </blockquote>
 
+<p>其实在使用面向对象语言进行编程的时候，经常不经意间就会涉及书中提到的知识，但是一旦用专门的词汇进行描述时，第一反应就是“诶？这是什么意思？看不懂啊”，只有经过反复的阅读与思考，才意识到这是日常编程经常遇到的问题，并且得到更深的理解</p>
+
 
                 </div>
                 <div class="read-all">
-                    <a  href="/2016/09/07/Java-holding-objects/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
-                </div>
-                <hr>
-              </li>
-            
-              <li>
-                <h2>
-                  <a class="post-link" href="/2016/09/07/Java-inner-class/">Java笔记整理：内部类</a>
-                </h2>
-                <div class="label">
-                    <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-07
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-
-                    <div class="label-card">
-                    
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#java" title="Category: java" rel="category">java</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                    </div>
-
-                    <div class="label-card">
-                    
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
-    
-  
-
-</span>
-
-                    </div>
-                </div>
-                <div class="excerpt">
-                    《Java编程思想》第十章
-                </div>
-                <div class="read-all">
-                    <a  href="/2016/09/07/Java-inner-class/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
-                </div>
-                <hr>
-              </li>
-            
-              <li>
-                <h2>
-                  <a class="post-link" href="/2016/09/07/Java-interface/">Java笔记整理：接口</a>
-                </h2>
-                <div class="label">
-                    <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-07
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-
-                    <div class="label-card">
-                    
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#java" title="Category: java" rel="category">java</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                    </div>
-
-                    <div class="label-card">
-                    
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
-    
-  
-
-</span>
-
-                    </div>
-                </div>
-                <div class="excerpt">
-                    《Java编程思想》第九章
-                </div>
-                <div class="read-all">
-                    <a  href="/2016/09/07/Java-interface/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
-                </div>
-                <hr>
-              </li>
-            
-              <li>
-                <h2>
-                  <a class="post-link" href="/2016/09/05/Java-polymorphism/">Java笔记整理：多态</a>
-                </h2>
-                <div class="label">
-                    <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-05
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-
-                    <div class="label-card">
-                    
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#java" title="Category: java" rel="category">java</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                    </div>
-
-                    <div class="label-card">
-                    
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
-    
-  
-
-</span>
-
-                    </div>
-                </div>
-                <div class="excerpt">
-                    《Java编程思想》第八章
-                </div>
-                <div class="read-all">
-                    <a  href="/2016/09/05/Java-polymorphism/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
-                </div>
-                <hr>
-              </li>
-            
-              <li>
-                <h2>
-                  <a class="post-link" href="/2016/09/05/Java-reuse-class/">Java笔记整理：复用类</a>
-                </h2>
-                <div class="label">
-                    <div class="label-card">
-                        <i class="fa fa-calendar"></i>2016-09-05
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-
-                    <div class="label-card">
-                    
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#java" title="Category: java" rel="category">java</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                    </div>
-
-                    <div class="label-card">
-                    
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#java" title="Tag: java" rel="tag">java</a>
-    
-  
-
-</span>
-
-                    </div>
-                </div>
-                <div class="excerpt">
-                    《Java编程思想》第七章
-                </div>
-                <div class="read-all">
-                    <a  href="/2016/09/05/Java-reuse-class/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
+                    <a  href="/2016/04/26/coding-interface-or-implement/"><i class="fa fa-newspaper-o"></i>阅读全文</a>
                 </div>
                 <hr>
               </li>
@@ -513,13 +357,13 @@
         <!-- Pagination links -->
         <div class="pagination">
           
-            <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
-            <span class="previous disable"><i class="fa fa-angle-left"></i></span>
+            <a href="/index.html" class="previous"><i class="fa fa-angle-double-left"></i></a>
+            <a href="/page3" class="previous"><i class="fa fa-angle-left"></i></a>
           
-          <span class="page_number ">1/4</span>
+          <span class="page_number ">4/4</span>
           
-            <a href="/page2" class="next"><i class="fa fa-angle-right"></i></a>
-            <a href="/page4" class="next"><i class="fa fa-angle-double-right"></i></a>
+            <span class="next disable"><i class="fa fa-angle-right"></i></span>
+            <span class="next disable"><i class="fa fa-angle-double-right"></i></span>
           
         </div>
     </div>
