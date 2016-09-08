@@ -26,6 +26,7 @@ Android N带来的直接回复通知的功能，允许用户直接在通知控�
 
 
 ----------
+
 ## 主要流程
 
 在开始之前，先来理清一下中间的步骤：
@@ -39,6 +40,7 @@ Android N带来的直接回复通知的功能，允许用户直接在通知控�
 
 
 ----------
+
 ## 构建Notification
 
 监听消息的Service在接收一条新消息后，将发出一条通知，那么直接回复的通知是如何构建的呢？
@@ -59,6 +61,7 @@ RemoteInput使用了建造者模式，RemoteInput.Builder的构造函数中需�
 
 
 ----------
+
 ### NotificationCompat.Action
 
 由于RemoteInput是v4 support包的，因此这里的通知是使用v4 support的NotificationCompat进行构建的
@@ -99,6 +102,7 @@ PendingIntent pendingIntent = PendingIntent.getService(
 
 
 ----------
+
 ### NotificationCompat.Builder
 
 Notification.Builder的使用以及通知的发送就不用介绍了：
@@ -133,6 +137,7 @@ style = new NotificationCompat.MessagingStyle("我")
 
 
 ----------
+
 ## 处理回复
 
 当用户进行了回复后，回复内容会被包装在一个Intent中，发送到action的PendingIntent指向的Service，BroadcastReceiver或Activity
@@ -160,6 +165,7 @@ protected void onHandleIntent(Intent intent) {
 
 
 ----------
+
 ## 更新通知
 
 用户点击发送按钮回复后，发送按钮会变成一个progress小圆圈，如果你在上面那步就结束的话，这个progress小圆圈就会一直转个不停，这样的用户体验显然是不好的，因此需要在消息发送成功后更新通知
