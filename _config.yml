@@ -9,7 +9,7 @@
 title: Mahong
 brief-intro: Android Developer
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://mahong978.github.io" # the base hostname & protocol for your site
+url: "https://mahong978.github.io" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
 
@@ -28,8 +28,13 @@ description_footer: 个人博客
 # comments
 # two ways to comment, only choose one, and use your own short name
 # 两种评论插件，选一个就好了，使用自己的 short_name
-duoshuo_shortname: mahong978
+duoshuo_shortname: #mahong978
 disqus_shortname: #mahong978
+
+github_owner: mahong978
+github_comment_repo: commentRepo
+github_client_id: 76cd690646c9a6bd9dd3
+github_client_secret: b910e2b5f7a2e6dc7f5d16021378f87303632ccf
 
 # statistic analysis 统计代码
 # 百度统计 id，将统计代码替换为自己的百度统计id，即
